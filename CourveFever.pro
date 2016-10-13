@@ -13,8 +13,20 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    player.cpp \
+    circle.cpp \
+    vector.cpp \
+    point.cpp \
+    gameitem.cpp \
+    bonus.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    player.h \
+    circle.h \
+    vector.h \
+    point.h \
+    gameitem.h \
+    bonus.h
 
 FORMS    += mainwindow.ui
