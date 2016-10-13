@@ -1,6 +1,5 @@
 #include "bonus.h"
 
-Bonus::Bonus()
-{
-
+Bonus::Bonus(){
+    virtual void apply()const =0;
 }

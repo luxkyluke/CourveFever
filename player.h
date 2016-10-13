@@ -2,10 +2,11 @@
 #define PLQYER_H
 
 
-class Plqyer
+class Player
 {
+
 public:
-    Plqyer();
+    Player();
 };
 
 #endif // PLQYER_H

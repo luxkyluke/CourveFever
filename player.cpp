@@ -1,6 +1,6 @@
-#include "plqyer.h"
+#include "player.h"
 
-Plqyer::Plqyer()
+Player::Player()
 {
 
 }
