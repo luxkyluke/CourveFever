@@ -15,8 +15,12 @@ class Player : public GameItem{
     int score,
         turn,
         id;
-
+    float angle;
+    
+    
+    
     void updatePosition();
+    void updateRotate();
 
 public:
     Player();
@@ -27,6 +31,8 @@ public:
     bool getTourn() const;
     void setTourn(bool value);
 
+    float getAngle() const;
+    void setAngle(float value);
 };
 
 #endif // PLAYER_H

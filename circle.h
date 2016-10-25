@@ -1,15 +1,15 @@
 #ifndef CIRCLE_H
 #define CIRCLE_H
+#include "gameitem.h"
 
 
-class Circle
-{
+class Circle : public GameItem{
     float radius;
     float radius_squared;
-    Point center;
 public:
     Circle();
     Circle(float rad, Point center);
+    void drawItem(QPainter &painter, QGLWidget &window);
 };
 
 #endif // CIRCLE_H
