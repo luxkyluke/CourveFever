@@ -3,8 +3,9 @@
 #include "gameitem.h"
 #include "circle.h"
 #include "vector2D.h"
+#include "matrix.h"
 
-static const int ITERATEUR_ID = 0;
+static int ITERATEUR_ID = 0;
 class Player : public GameItem{
 
     Circle head;
@@ -15,8 +16,9 @@ class Player : public GameItem{
     int score,
         turn,
         id;
-
+    float angle;
     void updatePosition();
+    void updateRotate();
 
 public:
     Player();
@@ -24,9 +26,11 @@ public:
 
     bool getRun() const;
     void setRun(bool value);
-    bool getTourn() const;
-    void setTourn(bool value);
+    int getTurn() const;
+    void setTurn(int value);
 
+    float getAngle() const;
+    void setAngle(float value);
 };
 
 #endif // PLAYER_H

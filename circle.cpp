@@ -6,7 +6,7 @@ Circle::Circle(){
     radius_squared = 0;
 }
 
-Circle::Circle(float rad, Point center){
+Circle::Circle(float rad, QPointF center){
     radius = rad;
     radius_squared = rad*rad;
     position = center;

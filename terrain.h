@@ -9,7 +9,6 @@ class Terrain
 
 public:
     Terrain(int nb_row, int nb_col);
-    ~Terrain();
     void print();
 };
 

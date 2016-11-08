@@ -13,6 +13,7 @@ class Matrix
     void initMatrix();
 public:
     Matrix(int nbRows, int nbCols);
+    Matrix();
     void print();
 };
 

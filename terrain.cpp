@@ -2,13 +2,9 @@
 #include <iostream>
 
 Terrain::Terrain(int nb_row, int nb_col){
-    pixels = new Matrix(nb_row, nb_col);
-}
-
-Terrain::~Terrain(){
-    delete pixels;
+    pixels = Matrix(nb_row, nb_col);
 }
 
 void Terrain::print(){
-    pixels->print();
+    pixels.print();
 }

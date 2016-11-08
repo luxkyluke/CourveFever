@@ -15,8 +15,7 @@ void Renderer::initializeGL()
     glClearColor(0.0, 0.0, 0.0, 0.0);
 }
 
-void Renderer::resizeGL(int w, int h)
-{
+void Renderer::resizeGL(int w, int h){
     // setup viewport, projection etc.:
     glViewport(0, 0, (GLint)w, (GLint)h);
     glMatrixMode(GL_PROJECTION);
@@ -25,10 +24,9 @@ void Renderer::resizeGL(int w, int h)
     glLoadIdentity();
 }
 
-void Renderer::paintEvent(QPaintEvent * event)
-{
+void Renderer::paintEvent(QPaintEvent * event){
     QPainter painter;
-    Circle c(5., Point(0, 0));
+    Circle c(5., QPoint(0., 0.));
     c.drawItem(painter, *this);
 
 }

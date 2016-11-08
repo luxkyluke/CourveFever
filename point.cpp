@@ -1,27 +1,27 @@
-#include "point.h"
+//#include "point.h"
 
-float Point::getX() const{
-    return x;
-}
+//float QPointF::getX() const{
+//    return x;
+//}
 
-void Point::setX(float value){
-    x = value;
-}
+//void QPointF::setX(float value){
+//    x = value;
+//}
 
-float Point::getY() const{
-    return y;
-}
+//float QPointF::getY() const{
+//    return y;
+//}
 
-void Point::setY(float value){
-    y = value;
-}
+//void QPointF::setY(float value){
+//    y = value;
+//}
 
-Point::Point(){
-    x=0.;
-    y=0.;
-}
+//QPointF::QPointF(){
+//    x=0.;
+//    y=0.;
+//}
 
-Point::Point(const float _x, const float _y){
-    x = _x;
-    y = _y;
-}
+//QPointF::QPointF(const float _x, const float _y){
+//    x = _x;
+//    y = _y;
+//}

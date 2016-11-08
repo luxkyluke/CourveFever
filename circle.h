@@ -8,7 +8,7 @@ class Circle : public GameItem{
     float radius_squared;
 public:
     Circle();
-    Circle(float rad, Point center);
+    Circle(float rad, QPointF center);
     void drawItem(QPainter &painter, QGLWidget &window);
 };
 

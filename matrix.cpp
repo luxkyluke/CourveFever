@@ -9,6 +9,12 @@ Matrix::Matrix(int nbRows, int nbCols){
     initMatrix();
 }
 
+Matrix::Matrix(){
+    nbRows=0;
+    nbCols=0;
+    initMatrix();
+}
+
 void Matrix::print(){
     for (int i = 0; i < nbRows; ++i) {
         for (int j = 0; j < nbCols; ++j) {

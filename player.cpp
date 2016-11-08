@@ -1,13 +1,13 @@
 #include "player.h"
+#include <math.h>
 
-Player::Player(){
+
+
+Player::Player(): direction(1.,0.){
     id = ITERATEUR_ID++;
     score =0;
     turn =0;
-    head = Circle(0., 0.);
-    direction = Vector2D(1.,0.);
-    speed = Vector2D(0., 0.);
-    acceleration = Vector2D(0., 0.);
+    head = Circle(2., QPointF(0., 0.));
     angle = 0.;
 }
 
@@ -23,12 +23,12 @@ void Player::setRun(bool value){
     isRunning = value;
 }
 
-bool Player::getTourn() const{
-    return isTurning;
+int Player::getTurn() const{
+    return turn;
 }
 
-void Player::setTourn(bool value){
-    isTurning = value;
+void Player::setTurn(int value){
+    turn = value;
 }
 
 float Player::getAngle() const{
@@ -40,13 +40,13 @@ void Player::setAngle(float value){
 }
 
 void Player::updatePosition(){
-    position.add(speed);
+    position = position + speed;
 }
 
 void Player::updateRotate(){
     if(turn != 0){
         angle -= turn * 2;
-        direction->setX(-sin((PI * angle) / 180));
-        direction->setY(cos((PI * angle) / 180));
+        direction.setX(qreal(-sin((M_PI * angle) / 180)));
+        direction.setY(cos((M_PI * angle) / 180));
     }
 }

@@ -37,5 +37,5 @@ HEADERS += \
     renderer.h \
     matrix.h \
     gameitem.h \
-    point.h \
-    vector2D.h
+    vector2D.h \
+    point2D.h

@@ -2,26 +2,27 @@
 #define VECTOR2D_H
 
 #include "gameitem.h"
-#include <QPointF>
 
-class Vector2D : public Point{
+class Vector2D : public QPointF{
 
 public:
-
-    void add(Vector2D v);
-    void sub(Vector2D v);
+    Vector2D(QPointF p);
+    Vector2D();
+    Vector2D(float x, float y);
+    void add(Vector2D & v);
+    void sub(Vector2D & v);
     void multi(float a);
     void div(float a);
 
     float sqrNorm();
     float norm();
     float normalize();
-    float dotProduct(Vetor2D v) const;
+    float dotProduct(Vector2D &v) const;
 
-    float getX() const;
-    float getY() const;
-    void setX(float value);
-    void setY(float value);
+private:
+
 };
+
+QPointF operator+(QPointF &p, Vector2D &v);
 
 #endif // VECTOR2D_H
