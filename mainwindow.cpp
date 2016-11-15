@@ -2,21 +2,33 @@
 #include "ui_mainwindow.h"
 #include "renderer.h"
 #include "circle.h"
+#include <iostream>
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent):QMainWindow(parent){
     this->resize(800, 800);
 
-    w = new Renderer(this);
+    Player p;
+    game = Game(this->width(), this->height(), p);
 
+    w = new Renderer(game, this);
     this->setCentralWidget(w);
+
+    //game = Game(this->width(), this->height());
+    QTimer* timer = new QTimer(this);
+    QObject::connect(timer, SIGNAL(TIMEOUT()), this, SLOT(refresh()));
+    timer->start();
 }
 
-void MainWindow::paintEvent(QPaintEvent *e){
-    QPainter p;
-    Circle c(5., QPoint(0., 0.));
-    c.drawItem(p, *w);
+void MainWindow::keyPressEvent(QKeyEvent* event) {
+    if(!game.keyPressed(event->key()))
+        event->ignore();
 }
 
 MainWindow::~MainWindow(){
 
+}
+
+void MainWindow::refresh(){
+    update();
 }

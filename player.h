@@ -22,7 +22,7 @@ class Player : public GameItem{
 
 public:
     Player();
-    void moov(Vector2D dir);
+    void moov();
 
     bool getRun() const;
     void setRun(bool value);
@@ -31,6 +31,8 @@ public:
 
     float getAngle() const;
     void setAngle(float value);
+
+    void drawItem(QPainter &painter, QGLWidget &window);
 };
 
 #endif // PLAYER_H

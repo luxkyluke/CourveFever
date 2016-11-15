@@ -24,7 +24,10 @@ SOURCES += main.cpp\
     matrix.cpp\
     terrain.cpp \
     point.cpp \
-    vector2D.cpp
+    vector2D.cpp \
+    play.cpp \
+    menu.cpp \
+    game.cpp
 
 FORMS    += mainwindow.ui
 
@@ -38,4 +41,7 @@ HEADERS += \
     matrix.h \
     gameitem.h \
     vector2D.h \
-    point2D.h
+    point2D.h \
+    play.h \
+    menu.h \
+    game.h

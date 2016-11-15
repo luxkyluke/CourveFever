@@ -3,18 +3,20 @@
 
 #include <QMainWindow>
 #include <QGLWidget>
+#include "game.h"
 
-
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow{
     Q_OBJECT
     QGLWidget* w;
+    Game game;
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    void paintEvent(QPaintEvent *e);
+    void keyPressEvent(QKeyEvent* event);
     ~MainWindow();
 
+public slots:
+    void refresh();
 };
 
 #endif // MAINWINDOW_H

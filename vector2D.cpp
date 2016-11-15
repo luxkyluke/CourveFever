@@ -5,11 +5,9 @@ QPointF operator+(QPointF &p, Vector2D &v){
 }
 
 Vector2D::Vector2D(QPointF p): QPointF(p.x(), p.y()){
-
 }
 
 Vector2D::Vector2D(float x, float y): QPointF(x, y){
-
 }
 
 Vector2D::Vector2D(): QPointF(0., 0.){

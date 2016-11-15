@@ -1,15 +1,15 @@
 #include "renderer.h"
 #include <qpainter.h>
 #include "circle.h"
+#include "game.h"
 
-Renderer::Renderer(QWidget *parent) : QGLWidget(parent){
+Renderer::Renderer(Game &g, QWidget *parent) :
+    QGLWidget(parent), game(g){
 
 }
 
-void Renderer::initializeGL()
-{
+void Renderer::initializeGL(){
     // Set up the rendering context, define display lists etc.:
-
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_MULTISAMPLE);
     glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -25,8 +25,12 @@ void Renderer::resizeGL(int w, int h){
 }
 
 void Renderer::paintEvent(QPaintEvent * event){
-    QPainter painter;
-    Circle c(5., QPoint(0., 0.));
-    c.drawItem(painter, *this);
-
+    QPainter painter(this);
+    painter.translate(width()/2, height()/2);
+    painter.scale(1, -1);
+//    painter.drawLine(QPointF(-500., 0.), QPointF(500., 0.)) ;
+//    painter.drawLine(QPointF(0., -500.), QPointF(0., 500.));
+//    Circle c(5., QPointF(-100., -200.));
+//    c.drawItem(painter, *this);
+    game.draw(painter, *this);
 }

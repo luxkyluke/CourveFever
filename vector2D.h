@@ -20,6 +20,11 @@ public:
     float dotProduct(Vector2D &v) const;
 
 private:
+    void updateSpeed();
+    void updateRotate();
+    void updatePosition();
+    void updateAcceleration();
+    void updateHeadPosition();
 
 };
 

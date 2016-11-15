@@ -7,12 +7,16 @@ Player::Player(): direction(1.,0.){
     id = ITERATEUR_ID++;
     score =0;
     turn =0;
-    head = Circle(2., QPointF(0., 0.));
+    head = Circle(10., QPointF(0., 0.));
     angle = 0.;
 }
 
-void moov(Vector2D dir){
-
+void Player::moov(){
+//    updateRotate();
+//    updateSpeed();
+//    updateAcceleration();
+//    updatePosition();
+//    updateHeadPos();
 }
 
 bool Player::getRun() const{
@@ -39,6 +43,10 @@ void Player::setAngle(float value){
     angle = value;
 }
 
+void Player::drawItem(QPainter &painter, QGLWidget &window){
+    head.drawItem(painter, window);
+}
+
 void Player::updatePosition(){
     position = position + speed;
 }
@@ -50,3 +58,9 @@ void Player::updateRotate(){
         direction.setY(cos((M_PI * angle) / 180));
     }
 }
+
+//void Player:updateSpeed() {
+//    h->vitesse = AddVectors(h->vitesse, h->acceleration);
+//    h->vitesse = SubVectors(h->vitesse, DivVector(h->vitesse, 50.));
+//    return;
+//}

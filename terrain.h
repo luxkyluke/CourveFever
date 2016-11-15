@@ -8,6 +8,7 @@ class Terrain
 
 
 public:
+    Terrain();
     Terrain(int nb_row, int nb_col);
     void print();
 };
