@@ -10,9 +10,10 @@ class Game;
 class Renderer : public QGLWidget
 {
     Q_OBJECT
-    Game &game;
+    Game *game;
 public:
-    explicit Renderer(Game& g, QWidget *parent = 0);
+
+    explicit Renderer(Game* g, QWidget *parent = 0);
 protected:
     void initializeGL();
     void resizeGL(int w, int h);

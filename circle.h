@@ -9,7 +9,8 @@ class Circle : public GameItem{
 public:
     Circle();
     Circle(float rad, QPointF center);
-    void drawItem(QPainter &painter, QGLWidget &window);
+    QPointF getPosition();
+    void drawItem(QPainter *painter, QGLWidget &window);
 };
 
 #endif // CIRCLE_H

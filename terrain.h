@@ -1,16 +1,23 @@
 #ifndef TERRAIN_H
 #define TERRAIN_H
-#include "matrix.h"
+#include <QPixmap>
+#include <QImage>
+#include <QColor>
+#include <QGLWidget>
 
 class Terrain
 {
-    Matrix pixels;
-
+    //Matrix pixels;
+    QImage pixels;
+    int width, height;
 
 public:
     Terrain();
     Terrain(int nb_row, int nb_col);
-    void print();
+    int getWidth() const;
+    int getHeight() const;
+    QImage getPixels() const;
+    void update(QGLWidget* renderer);
 };
 
 #endif // TERRAIN_H

@@ -3,9 +3,11 @@
 #include "circle.h"
 #include "game.h"
 
-Renderer::Renderer(Game &g, QWidget *parent) :
-    QGLWidget(parent), game(g){
 
+using namespace std;
+QTime chrono;
+Renderer::Renderer(Game *g, QWidget *parent) :
+    QGLWidget(parent), game(g){
 }
 
 void Renderer::initializeGL(){
@@ -25,12 +27,12 @@ void Renderer::resizeGL(int w, int h){
 }
 
 void Renderer::paintEvent(QPaintEvent * event){
-    QPainter painter(this);
+    //QRect rectangle = QRect( QPoint( 0, 0 ), QSize( -1, -1 ) );
+    QPainter painter;
+    painter.begin(this);
     painter.translate(width()/2, height()/2);
     painter.scale(1, -1);
-//    painter.drawLine(QPointF(-500., 0.), QPointF(500., 0.)) ;
-//    painter.drawLine(QPointF(0., -500.), QPointF(0., 500.));
-//    Circle c(5., QPointF(-100., -200.));
-//    c.drawItem(painter, *this);
-    game.draw(painter, *this);
+    game->draw(&painter, *this);
+    painter.end();
+
 }

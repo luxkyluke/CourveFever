@@ -27,7 +27,9 @@ SOURCES += main.cpp\
     vector2D.cpp \
     play.cpp \
     menu.cpp \
-    game.cpp
+    game.cpp \
+    ctrlkey.cpp \
+    gameitem.cpp
 
 FORMS    += mainwindow.ui
 
@@ -44,4 +46,5 @@ HEADERS += \
     point2D.h \
     play.h \
     menu.h \
-    game.h
+    game.h \
+    ctrlkey.h

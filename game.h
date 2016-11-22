@@ -5,20 +5,28 @@
 #include "terrain.h"
 #include "player.h"
 
-//#include "mainwindow.h"
+#include "mainwindow.h"
 
 
-class Game{
-
-    QVector<Player> players;
+class Game : public QObject{
+    Q_OBJECT
+    QVector<Player*> players;
     Terrain terrain;
+    MainWindow window;
+
+    void updateScene();
 
 public:
     Game();
-    Game(const int w, const int h, Player &p);
-    void addPlayer(Player &p);
-    bool keyPressed(int key);
-    void draw(QPainter &painter, QGLWidget &window);
+    Game(const int w, const int h, Player *p);
+    void addPlayer(Player *p);
+    bool keyEvent(QKeyEvent* event);
+    void draw(QPainter *painter, QGLWidget &window);
+    int getWidth();
+    int getHeight();
+
+public slots:
+    void refresh();
 
 };
 

@@ -18,16 +18,12 @@ public:
     float norm();
     float normalize();
     float dotProduct(Vector2D &v) const;
-
-private:
-    void updateSpeed();
-    void updateRotate();
-    void updatePosition();
-    void updateAcceleration();
-    void updateHeadPosition();
-
+    void operator=(const Vector2D &v);
+    Vector2D operator+=(const Vector2D &v);
 };
 
-QPointF operator+(QPointF &p, Vector2D &v);
+std::ostream& operator<<(std::ostream& os, const Vector2D& v);
+Vector2D operator*(Vector2D &v, float a);
+QPointF operator+(QPointF &p, const Vector2D &v);
 
 #endif // VECTOR2D_H

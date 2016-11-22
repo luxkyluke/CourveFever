@@ -1,34 +1,50 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "renderer.h"
-#include "circle.h"
+#include "game.h"
 #include <iostream>
-#include <QTimer>
 
-MainWindow::MainWindow(QWidget *parent):QMainWindow(parent){
-    this->resize(800, 800);
+QGLWidget *MainWindow::getRenderer() const
+{
+    return w;
+}
 
-    Player p;
-    game = Game(this->width(), this->height(), p);
+MainWindow::MainWindow(QWidget *parent):
+    QMainWindow(parent){
+
+}
+
+MainWindow::MainWindow(Game *g, QWidget *parent):
+        game(g), QMainWindow(parent){
+    this->resize(g->getWidth(), g->getHeight());
+
+//    Player p(Qt::Key_Right, Qt::Key_Left);
+//    game = Game(this->width(), this->height(), p);
 
     w = new Renderer(game, this);
     this->setCentralWidget(w);
 
     //game = Game(this->width(), this->height());
-    QTimer* timer = new QTimer(this);
-    QObject::connect(timer, SIGNAL(TIMEOUT()), this, SLOT(refresh()));
-    timer->start();
+
 }
 
 void MainWindow::keyPressEvent(QKeyEvent* event) {
-    if(!game.keyPressed(event->key()))
+    if(!game->keyEvent(event))
         event->ignore();
 }
+
+void MainWindow::keyReleaseEvent(QKeyEvent* event){
+    if(!game->keyEvent(event))
+        event->ignore();
+}
+
+void MainWindow::repaintRenderer(){
+    w->update();
+}
+
+
 
 MainWindow::~MainWindow(){
 
 }
 
-void MainWindow::refresh(){
-    update();
-}
