@@ -15,6 +15,12 @@ void Canvas::paintEvent(QPaintEvent *pe){
     //QWidget::paintEvent(pe);
     QPainter painter;
     painter.begin(&pic);
+
+//    QPen pen= painter.pen();
+//    pen.setWidth(0);
+//    painter.setPen(pen);
+    painter.setPen(Qt::NoPen);
+
     painter.translate(game->getWidth()/2, game->getHeight()/2);
     painter.scale(1, -1);
     game->draw(&painter);
