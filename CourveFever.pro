@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     game.cpp \
     ctrlkey.cpp \
     gameitem.cpp \
-    collision.cpp
+    collision.cpp \
+    canvas.cpp
 
 FORMS    += mainwindow.ui
 
@@ -49,4 +50,5 @@ HEADERS += \
     menu.h \
     game.h \
     ctrlkey.h \
-    collision.h
+    collision.h \
+    canvas.h

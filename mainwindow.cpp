@@ -1,12 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "renderer.h"
+#include "canvas.h"
 #include "game.h"
 #include <iostream>
 
-QGLWidget *MainWindow::getRenderer() const
+Canvas *MainWindow::getRenderer() const
 {
-    return w;
+    return canva;
 }
 
 MainWindow::MainWindow(QWidget *parent):
@@ -21,11 +21,18 @@ MainWindow::MainWindow(Game *g, QWidget *parent):
 //    Player p(Qt::Key_Right, Qt::Key_Left);
 //    game = Game(this->width(), this->height(), p);
 
-    w = new Renderer(game, this);
-    this->setCentralWidget(w);
+//    w = new Renderer(game, this);
+    label = new QLabel("start", this);
+   //
+    canva= new Canvas(game, this);
+    QVBoxLayout *vbl = new QVBoxLayout(this);
+
+    vbl->addWidget(label);
+
+    this->setCentralWidget(label);
 
     //game = Game(this->width(), this->height());
-
+   // label->show();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent* event) {
@@ -39,10 +46,13 @@ void MainWindow::keyReleaseEvent(QKeyEvent* event){
 }
 
 void MainWindow::repaintRenderer(){
-    w->update();
+    //canva->update();
 }
 
-
+void MainWindow::paintEvent(QPaintEvent *e){
+    canva->paintEvent(e);
+    label->setPixmap(canva->getPic());
+}
 
 MainWindow::~MainWindow(){
 

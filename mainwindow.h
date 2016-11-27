@@ -2,12 +2,16 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QGLWidget>
+#include "canvas.h"
+#include <QLabel>
+
+
 class Game;
 
 class MainWindow : public QMainWindow{
 
-    QGLWidget* w;
+    Canvas* canva;
+    QLabel* label;
     Game* game;
 
 public:
@@ -16,11 +20,11 @@ public:
     void keyPressEvent(QKeyEvent* event);
     void keyReleaseEvent(QKeyEvent* event);
     void repaintRenderer();
-
+    void paintEvent(QPaintEvent *e);
     ~MainWindow();
 
 
-    QGLWidget *getRenderer() const;
+    Canvas *getRenderer() const;
 };
 
 #endif // MAINWINDOW_H

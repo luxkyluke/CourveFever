@@ -16,7 +16,7 @@ QPointF Circle::getPosition(){
     return GameItem::getPosition();
 }
 
-void Circle::drawItem(QPainter *painter, QGLWidget &window){
+void Circle::drawItem(QPainter *painter){
    // painter->begin(&window);
     painter->setBrush(QColor::fromRgbF(0, 1, 0, 1));
     painter->drawEllipse(position, radius, radius);

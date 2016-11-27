@@ -52,9 +52,9 @@ void Game::updateScene(){
     }
 }
 
-void Game::draw(QPainter *painter, QGLWidget &window){
+void Game::draw(QPainter *painter){
     foreach (Player* p, players) {
-        p->drawItem(painter, window);
+        p->drawItem(painter);
     }
 }
 
@@ -70,8 +70,7 @@ int Game::getHeight(){
 void Game::refresh(){
     updateScene();
     window.repaintRenderer();
-    terrain.update(window.getRenderer());
-
+    //terrain.update(window.getRenderer());
 }
 
 //bool FilterObject::eventFilter(QObject *object, QEvent *event){

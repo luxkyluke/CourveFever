@@ -5,7 +5,8 @@
 
 
 using namespace std;
-QTime chrono;
+//QTime chrono;
+
 Renderer::Renderer(Game *g, QWidget *parent) :
     QGLWidget(parent), game(g){
 }
@@ -14,6 +15,7 @@ void Renderer::initializeGL(){
     // Set up the rendering context, define display lists etc.:
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_MULTISAMPLE);
+
     glClearColor(0.0, 0.0, 0.0, 0.0);
 }
 
@@ -32,7 +34,7 @@ void Renderer::paintEvent(QPaintEvent * event){
     painter.begin(this);
     painter.translate(width()/2, height()/2);
     painter.scale(1, -1);
-    game->draw(&painter, *this);
+    game->draw(&painter);
     painter.end();
 
 }

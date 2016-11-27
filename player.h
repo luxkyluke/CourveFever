@@ -46,7 +46,7 @@ public:
     float getAngle() const;
     void setAngle(float value);
 
-    void drawItem(QPainter *painter, QGLWidget &window);
+    void drawItem(QPainter *painter);
 
 };
 

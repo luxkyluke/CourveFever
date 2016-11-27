@@ -21,7 +21,7 @@ public:
     Game(const int w, const int h, Player *p);
     void addPlayer(Player *p);
     bool keyEvent(QKeyEvent* event);
-    void draw(QPainter *painter, QGLWidget &window);
+    void draw(QPainter *painter);
     int getWidth();
     int getHeight();
 
