@@ -25,6 +25,7 @@ MainWindow::MainWindow(const int w, const int h, QWidget *parent):QMainWindow(pa
     vbl->addWidget(label);
 
     this->setCentralWidget(label);
+    canva = NULL;
 }
 
 
@@ -43,6 +44,10 @@ void MainWindow::keyReleaseEvent(QKeyEvent* event){
 //}
 
 void MainWindow::paintEvent(QPaintEvent *e){
+    if(canva == NULL){
+        std::cerr << "Cannot paint window's canvas, null pointeur exception"<<std::endl;
+        exit(EXIT_FAILURE);
+    }
     canva->paintEvent(e);
     label->setPixmap(canva->getPic());
 }
