@@ -12,7 +12,6 @@ class Game : public QObject{
     Q_OBJECT
     QVector<Player*> players;
     Terrain terrain;
-    MainWindow window;
 
     void updateScene();
 
@@ -24,6 +23,8 @@ public:
     int getWidth() const;
     int getHeight() const;
     bool eventFilter(QObject *object, QEvent *event);
+
+    Terrain* getTerrain();
 
 public slots:
     void refresh();

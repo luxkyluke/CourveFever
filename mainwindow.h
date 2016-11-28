@@ -2,29 +2,31 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "canvas.h"
 #include <QLabel>
 
 
+//class Game;
+class Terrain;
 class Game;
 
 class MainWindow : public QMainWindow{
 
-    Canvas* canva;
+    Terrain* canva;
     QLabel* label;
     //Game* game;
 
 public:
     //explicit MainWindow(QWidget *parent = 0);
-    explicit MainWindow(const Game *g, QWidget *parent = 0);
+    explicit MainWindow(const int w, const int h, QWidget *parent = 0);
     void keyPressEvent(QKeyEvent* event);
     void keyReleaseEvent(QKeyEvent* event);
-    void repaintRenderer();
+    //void repaintRenderer();
     void paintEvent(QPaintEvent *e);
+    void setCanvas(Terrain* t);
     ~MainWindow();
 
 
-    Canvas *getRenderer() const;
+    //Canvas *getRenderer() const;
 };
 
 #endif // MAINWINDOW_H

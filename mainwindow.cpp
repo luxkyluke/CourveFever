@@ -1,31 +1,35 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "canvas.h"
+#include "terrain.h"
 #include "game.h"
 #include <iostream>
+#include <QVBoxLayout>
 
-Canvas *MainWindow::getRenderer() const
-{
-    return canva;
-}
+//Canvas *MainWindow::getRenderer() const
+//{
+//    return canva;
+//}
 
 //MainWindow::MainWindow(QWidget *parent):
 //    QMainWindow(parent){
 
 //}
 
-MainWindow::MainWindow(const Game *g, QWidget *parent):
-        QMainWindow(parent){
-    this->resize(g->getWidth(), g->getHeight());
+MainWindow::MainWindow(const int w, const int h, QWidget *parent):QMainWindow(parent){
+    this->resize(w, h);
 
     label = new QLabel("start", this);
 
-    canva= new Canvas(g, this);
     QVBoxLayout *vbl = new QVBoxLayout(this);
 
     vbl->addWidget(label);
 
     this->setCentralWidget(label);
+}
+
+
+void MainWindow::setCanvas(Terrain* t){
+    canva = t;
 }
 
 void MainWindow::keyPressEvent(QKeyEvent* event) {
@@ -34,9 +38,9 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
 void MainWindow::keyReleaseEvent(QKeyEvent* event){
 }
 
-void MainWindow::repaintRenderer(){
-    //canva->update();
-}
+//void MainWindow::repaintRenderer(){
+//    //canva->update();
+//}
 
 void MainWindow::paintEvent(QPaintEvent *e){
     canva->paintEvent(e);
