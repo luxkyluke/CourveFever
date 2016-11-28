@@ -8,15 +8,15 @@ using namespace std;
 
 const static int FRAME_DURATION = 17;
 
-Game::Game(): terrain(),
-    window(){
+//Game::Game(): terrain(),
+//    window(){
 
-}
+//}
 
 Game::Game(const int w, const int h, Player* p1): terrain(w, h),
      window(this){
 
-    //w.installEventFilter(Game);
+    window.installEventFilter(this);
 
     QTimer* timer = new QTimer(this);
     QObject::connect(timer, SIGNAL(timeout()), this, SLOT(refresh()));
@@ -73,15 +73,17 @@ void Game::refresh(){
     //terrain.update(window.getRenderer());
 }
 
-//bool FilterObject::eventFilter(QObject *object, QEvent *event){
-//    if (object == target && event->type() == QEvent::KeyPress) {
-//        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
-//        if (keyEvent->key() == Qt::Key_Tab) {
-//            // Special tab handling
-//            std::cout<<"samarche"<<std::endl;
-//            return true;
-//        } else
-//            return false;
-//    }
-//    return false;
-//}
+bool Game::eventFilter(QObject *object, QEvent *event){
+
+    if(event->type() == QEvent::KeyPress){
+        QKeyEvent *kEvent = static_cast<QKeyEvent *>(event);
+        keyEvent(kEvent);
+        return true;
+    }
+    if(event->type() == QEvent::KeyRelease){
+        QKeyEvent *kEvent = static_cast<QKeyEvent *>(event);
+        keyEvent(kEvent);
+        return true;
+    }
+    return false;
+}

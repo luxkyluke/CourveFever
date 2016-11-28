@@ -17,13 +17,13 @@ class Game : public QObject{
     void updateScene();
 
 public:
-    Game();
     Game(const int w, const int h, Player *p);
     void addPlayer(Player *p);
     bool keyEvent(QKeyEvent* event);
     void draw(QPainter *painter) const;
     int getWidth() const;
     int getHeight() const;
+    bool eventFilter(QObject *object, QEvent *event);
 
 public slots:
     void refresh();

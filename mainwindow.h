@@ -12,11 +12,11 @@ class MainWindow : public QMainWindow{
 
     Canvas* canva;
     QLabel* label;
-    Game* game;
+    //Game* game;
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    explicit MainWindow(Game *g, QWidget *parent = 0);
+    //explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(const Game *g, QWidget *parent = 0);
     void keyPressEvent(QKeyEvent* event);
     void keyReleaseEvent(QKeyEvent* event);
     void repaintRenderer();
