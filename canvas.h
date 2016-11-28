@@ -6,15 +6,14 @@
 #include <QtOpenGL>
 #include <QPixmap>
 
-
 class Game;
 
 class Canvas : public QWidget{
     Q_OBJECT
-    Game *game;
     QPixmap pic;
+    const Game* game;
 public:
-    explicit Canvas(Game* g, QWidget *parent = 0);
+    explicit Canvas(const Game* g, QWidget *parent = 0);
     void paintEvent(QPaintEvent *pe);
     QPixmap getPic() const;
 };

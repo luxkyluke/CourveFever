@@ -88,7 +88,7 @@ void Player::setAngle(float value){
     angle = value;
 }
 
-void Player::drawItem(QPainter *painter){
+void Player::drawItem(QPainter *painter)const{
     Circle::drawItem(painter);
 }
 

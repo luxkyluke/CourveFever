@@ -52,17 +52,17 @@ void Game::updateScene(){
     }
 }
 
-void Game::draw(QPainter *painter){
+void Game::draw(QPainter *painter)const{
     foreach (Player* p, players) {
         p->drawItem(painter);
     }
 }
 
-int Game::getWidth(){
+int Game::getWidth() const{
     return terrain.getWidth();
 }
 
-int Game::getHeight(){
+int Game::getHeight() const{
     return terrain.getHeight();
 }
 

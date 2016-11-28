@@ -4,9 +4,9 @@
 #include <QImage>
 #include <QColor>
 #include <QGLWidget>
+#include <QLabel>
 
-class Terrain
-{
+class Terrain : public QLabel{
     //Matrix pixels;
     QImage pixels;
     int width, height;
@@ -19,7 +19,7 @@ public:
     QImage& getPixels() ;
     QColor getPixel(int x, int y);
     QColor getPixel(QPointF& pt);
-    void update(QGLWidget* renderer);
+    //void update(QGLWidget* renderer);
 
     void changeCoordInImgDim(const float x, const float y,
                           int *_x, int*_y);

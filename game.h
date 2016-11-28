@@ -21,9 +21,9 @@ public:
     Game(const int w, const int h, Player *p);
     void addPlayer(Player *p);
     bool keyEvent(QKeyEvent* event);
-    void draw(QPainter *painter);
-    int getWidth();
-    int getHeight();
+    void draw(QPainter *painter) const;
+    int getWidth() const;
+    int getHeight() const;
 
 public slots:
     void refresh();

@@ -10,7 +10,7 @@ public:
     Circle();
     Circle(float rad, QPointF center);
     QPointF getPosition();
-    void drawItem(QPainter *painter);
+    void drawItem(QPainter *painter) const;
 };
 
 #endif // CIRCLE_H

@@ -5,8 +5,8 @@ QPixmap Canvas::getPic()const{
     return pic;
 }
 
-Canvas::Canvas(Game *g, QWidget *parent) :
-    QWidget(parent), game(g),
+Canvas::Canvas(const Game* g, QWidget *parent) :
+    QWidget(parent),game (g),
     pic(g->getWidth(), g->getHeight()){
 
 }
@@ -15,10 +15,6 @@ void Canvas::paintEvent(QPaintEvent *pe){
     //QWidget::paintEvent(pe);
     QPainter painter;
     painter.begin(&pic);
-
-//    QPen pen= painter.pen();
-//    pen.setWidth(0);
-//    painter.setPen(pen);
     painter.setPen(Qt::NoPen);
 
     painter.translate(game->getWidth()/2, game->getHeight()/2);

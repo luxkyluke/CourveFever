@@ -23,9 +23,9 @@ QColor Terrain::getPixel(QPointF& pt){
     return pixels.pixel(pt.toPoint());
 }
 
-void Terrain::update(QGLWidget* renderer){
-    pixels =  renderer->grab().toImage();
-}
+//void Terrain::update(QGLWidget* renderer){
+//    pixels =  renderer->grab().toImage();
+//}
 
 void Terrain::changeCoordInImgDim(const float x, const float y,
                                int *_x, int *_y){

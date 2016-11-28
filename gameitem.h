@@ -11,7 +11,7 @@ class GameItem{
 protected:
     QPointF position;
 public:
-    virtual void drawItem(QPainter *painter) = 0;
+    virtual void drawItem(QPainter *painter) const = 0;
     QPointF getPosition() const;
     void setPosition(const QPointF &value);
 };
