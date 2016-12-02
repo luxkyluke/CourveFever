@@ -8,6 +8,8 @@
 #include "ctrlKey.h"
 
 
+//https://www.codeproject.com/Articles/3274/Drawing-Arrows
+
 static int ITERATEUR_ID = 0;
 const static int NB_KEYS = 2;
 
@@ -48,6 +50,7 @@ public:
 
     void drawItem(QPainter *painter)const;
 
+    Vector2D getDirection() const;
 };
 
 #endif // PLAYER_H

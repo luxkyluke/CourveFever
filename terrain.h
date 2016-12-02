@@ -4,6 +4,7 @@
 #include <QImage>
 #include <QColor>
 #include <QWidget>
+#include "player.h"
 
 class Game;
 
@@ -13,6 +14,12 @@ class Terrain : public QWidget{
     QImage pixels;
     QPixmap pic;
     int width, height;
+    QPointF facePt ;
+    QPointF rightPt;
+    QPointF leftPt ;
+    QPointF halfRightPt;
+    QPointF halfLeftPt ;
+
 
 public:
     Terrain(QWidget *parent =0);
@@ -29,8 +36,8 @@ public:
     void changeCoordInImgDim(const float x, const float y,
                           int *_x, int*_y);
     QPoint getCoordInImgDim(QPointF& pt);
-
     QPixmap getPic() const;
+    bool checkCollisions(Player* p);
 
     //change coordinates x, y which have origin (0,0)
     //in the middle of the scene by coord (0,0) based
@@ -38,6 +45,9 @@ public:
     int getXImgCoord(const float x);
     int getYImgCoord(const float y);
 
+    QPointF getFacePt() const;
+    QPointF getRightPt() const;
+    QPointF getLeftPt() const;
 };
 
 

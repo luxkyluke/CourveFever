@@ -90,6 +90,11 @@ void Player::setAngle(float value){
 
 void Player::drawItem(QPainter *painter)const{
     Circle::drawItem(painter);
+   // painter->setBrush(QColor::fromRgbF(0, 1, 1, 1));
+//    painter->drawEllipse(direction, 2, 2);
+
+
+    //std::cout << "direction " << direction*100 <<std::endl;
 }
 
 
@@ -101,6 +106,11 @@ void Player::updateRotate(){
         direction.setX(nx);
         direction.setY(ny);
     }
+}
+
+Vector2D Player::getDirection() const
+{
+    return direction;
 }
 
 void Player::updateSpeed(){

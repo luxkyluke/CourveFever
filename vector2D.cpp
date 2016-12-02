@@ -66,6 +66,10 @@ Vector2D Vector2D::operator+=(const Vector2D &v){
     return Vector2D(dynamic_cast<QPointF*>(this)->operator +=(v));
 }
 
+Vector2D Vector2D::operator+(const Vector2D &v1){
+    return Vector2D(this->x()+v1.x(), this->y()+v1.y());
+}
+
 std::ostream& operator<<(std::ostream& os, const Vector2D& v){
     os << "x :" << v.x() << " y :" << v.y() << std::endl;
     return os;
@@ -82,3 +86,10 @@ Vector2D operator*(Vector2D &v, float a){
     ret.multi(a);
     return ret;
 }
+
+QPointF getPointPlusAngle(QPointF dir, float angle){
+    qreal nx = qreal(-sin((M_PI * angle) / 180));
+    qreal ny = qreal(cos((M_PI * angle) / 180));
+    return dir + QPointF(nx, ny);
+}
+

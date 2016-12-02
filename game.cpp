@@ -78,7 +78,10 @@ int Game::getHeight() const{
 void Game::refresh(){
     updateScene();
     //window.repaintRenderer();
-    //terrain.update(window.getRenderer());
+    //terrain.update();
+    foreach(Player* p, players){
+        terrain.checkCollisions(p);
+    }
 }
 
 bool Game::eventFilter(QObject *object, QEvent *event){

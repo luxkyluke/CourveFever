@@ -20,10 +20,12 @@ public:
     float dotProduct(Vector2D &v) const;
     void operator=(const Vector2D &v);
     Vector2D operator+=(const Vector2D &v);
+    Vector2D operator+(const Vector2D &v1);
 };
 
 std::ostream& operator<<(std::ostream& os, const Vector2D& v);
 Vector2D operator*(Vector2D &v, float a);
 QPointF operator+(QPointF &p, const Vector2D &v);
+QPointF getPointPlusAngle(QPointF dir, float angle);
 
 #endif // VECTOR2D_H
