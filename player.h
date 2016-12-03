@@ -11,9 +11,6 @@
 #include "ctrlKey.h"
 
 
-
-//https://www.codeproject.com/Articles/3274/Drawing-Arrows
-
 static int ITERATEUR_ID = 0;
 const static int NB_KEYS = 2;
 
@@ -23,11 +20,9 @@ private:
     //Circle head;
     Vector2D direction,
            speed;
-    bool isRunning;
     int score,
-        turn,
-        id;
-
+        turn;
+    bool isLiving;
     float angle;
     CtrlKey ctrlKeys;
 
@@ -41,21 +36,18 @@ public:
     Player(int rKey, int lKey);
     void moov();
     QPointF getPosition() const;
-
+    bool isMyColor(QColor c);
     bool getRun() const;
-    void setRun(bool value);
-//    int getTurn() const;
-//    void setTurn(int value);
     bool isACrtlKey(int key);
+    void kill();
     bool checkKey(QKeyEvent* event);
     QVector<QPointF> getCollisionPoints() const ;
-
+    void increaseScore();
     float getAngle() const;
-    void setAngle(float value);
-
     void drawItem(QPainter *painter)const;
-
     Vector2D getDirection() const;
+    int getScore() const;
+    bool getIsLiving() const;
 };
 
 #endif // PLAYER_H

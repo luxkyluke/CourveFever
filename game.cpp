@@ -3,10 +3,12 @@
 #include <QTimer>
 #include <iostream>
 #include <iostream>
+#include "myexception.h"
 
 using namespace std;
 
 const static int FRAME_DURATION = 17;
+
 
 //Game::Game(): terrain(),
 //    window(){
@@ -15,6 +17,7 @@ const static int FRAME_DURATION = 17;
 
 Game::Game(const int w, const int h, Player* p1) :
         terrain(this, w, h){
+    nbLivingPlayers = 0;
 
     MainWindow* window = new MainWindow(w, h);
     window->installEventFilter(this);
@@ -26,12 +29,13 @@ Game::Game(const int w, const int h, Player* p1) :
     QObject::connect(timer, SIGNAL(timeout()), this, SLOT(refresh()));
     timer->start(FRAME_DURATION);
 
-    players.append(p1);
+    addPlayer(p1);
     window->show();
 }
 
 void Game::addPlayer(Player *p){
     players.append(p);
+    nbLivingPlayers ++;
 }
 
 //void Game::play(){
@@ -55,9 +59,15 @@ Terrain* Game::getTerrain(){
 void Game::updateScene(){
     foreach(Player* p, players){
         p->moov();
-        //std::cout<<p.getPosition().x() << " " <<p.getPosition().y()<<std::endl;
-        //updateTerrain(p.id(), p.position());
     }
+}
+
+Player &Game::getPlayer(QColor c){
+    foreach (Player* p, players) {
+        if(p->isMyColor(c))
+            return *p;
+    }
+    throw ;
 }
 
 void Game::draw(QPainter *painter)const{
@@ -74,14 +84,37 @@ int Game::getHeight() const{
     return terrain.getHeight();
 }
 
+void Game::checkCollision(){
+    foreach(Player* p, players){
+        if(!p->getIsLiving())
+            continue;
+        QColor c;
+        if(terrain.isInCollision(p, &c)){
+            cout << "couleur " << c.red() << " "<< c.green() << " "<< c.blue() <<endl;
+            if(terrain.isBordersColor(c) || p->isMyColor(c)){
+                p->kill();
+                nbLivingPlayers--;
+                continue;
+            }
+            try{
+                Player killer = getPlayer(c);
+                killer.increaseScore();
+            }catch(exception& e){
+                cout << "Is not a player color" << endl;
+            }
+
+        }
+    }
+}
 
 void Game::refresh(){
-    updateScene();
-    //window.repaintRenderer();
-    //terrain.update();
-    foreach(Player* p, players){
-        if(!terrain.checkCollisions(p));
-
+    if(nbLivingPlayers>0){
+        updateScene();
+        checkCollision();
+    }
+    else{
+        cout << "C'EST LA FIN"<<endl;
+        exit(0);
     }
 }
 

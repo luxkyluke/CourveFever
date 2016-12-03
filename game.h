@@ -8,11 +8,15 @@
 
 
 class Game : public QObject{
+private:
     Q_OBJECT
     QVector<Player*> players;
     Terrain terrain;
+    int nbLivingPlayers;
 
     void updateScene();
+    Player& getPlayer(QColor c);
+    void checkCollision();
 
 public:
     Game(const int w, const int h, Player *p);
@@ -22,6 +26,7 @@ public:
     int getWidth() const;
     int getHeight() const;
     bool eventFilter(QObject *object, QEvent *event);
+
 
     Terrain* getTerrain();
 

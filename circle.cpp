@@ -1,15 +1,29 @@
 #include "circle.h"
 #include <QColor>
 
+static const QColor DEFAULT_COLOR(255, 255, 255, 255);
+
+QColor Circle::getColor() const
+{
+    return color;
+}
+
+void Circle::setColor(const QColor &value)
+{
+    color = value;
+}
+
 Circle::Circle(){
     radius = 0;
     radius_squared = 0;
+    color = DEFAULT_COLOR;
 }
 
 Circle::Circle(float rad, QPointF center){
     radius = rad;
     radius_squared = rad*rad;
     position = center;
+    color = DEFAULT_COLOR;
 }
 
 QPointF Circle::getPosition() const{
@@ -17,8 +31,6 @@ QPointF Circle::getPosition() const{
 }
 
 void Circle::drawItem(QPainter *painter) const{
-   // painter->begin(&window);
-    painter->setBrush(QColor::fromRgbF(0, 1, 0, 1));
+    painter->setBrush(color);
     painter->drawEllipse(position, radius, radius);
-    //painter->end();
 }

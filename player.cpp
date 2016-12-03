@@ -1,6 +1,10 @@
 #include "player.h"
 #include <math.h>
 #include <iostream>
+#include <stdlib.h>
+#include <ctime>
+
+
 using namespace std;
 
 const static float DEFAULT_ACCELERATION = 1.5;
@@ -17,53 +21,51 @@ Player::Player(): direction(DEFAULT_DIR),
     score =0;
     turn = 0;
     angle = 0.;
+    int r = rand() %185 + 70;
+    int g = rand() %185 + 70;
+    int b = rand() %185 + 70;
+    setColor(QColor(r, g, b, 255));
+    isLiving = true;
 }
 
 Player::Player(int rKey, int lKey): direction(DEFAULT_DIR),
             Circle(DEFAULT_RADIUS, DEFAULT_POSITION),
             ctrlKeys(CtrlKey(rKey, lKey)),
             speed(DEFAULT_SPEED){
-    id = ITERATEUR_ID++;
     score =0;
     angle = 0.;
     turn = 0;
+    srand(time(NULL));
+    int r = rand() %185 + 70;
+    int g = rand() %185 + 70;
+    int b = rand() %185 + 70;
+    setColor(QColor(r, g, b, 255));
+    isLiving = true;
 }
 
 void Player::moov(){
-    updateRotate();
-    updateSpeed();
-    updatePosition();
+    if(isLiving){
+        updateRotate();
+        updateSpeed();
+        updatePosition();
+    }
 }
 
 QPointF Player::getPosition() const{
     return Circle::getPosition();
 }
 
-bool Player::getRun() const{
-    return isRunning;
+bool Player::isMyColor(QColor c){
+    return c == Circle::getColor();
 }
 
-void Player::setRun(bool value){
-    isRunning = value;
+void Player::kill(){
+    isLiving = false;
 }
-
-//int Player::getTurn() const{
-//    return turn;
-//}
-
-//void Player::setTurn(int value){
-//    turn = value;
-//}
-
-//bool Player::isACrtlKey(int key){
-//    for(int i=0; i<sizeof(ctrl_keys); ++i){
-//        if(ctrl_keys[i] == key)
-//            return true;
-//    }
-//    return false;
-//}
 
 bool Player::checkKey(QKeyEvent* event){
+    if(!isLiving)
+        return false;
     if(!ctrlKeys.isCtrlKey(event->key()))
         return false;
     if(event->type() == QKeyEvent::KeyPress){
@@ -102,12 +104,12 @@ QVector<QPointF> Player::getCollisionPoints() const{
     return pts;
 }
 
-float Player::getAngle() const{
-    return angle;
+void Player::increaseScore(){
+    score++;
 }
 
-void Player::setAngle(float value){
-    angle = value;
+float Player::getAngle() const{
+    return angle;
 }
 
 void Player::drawItem(QPainter *painter)const{
@@ -132,6 +134,14 @@ void Player::updateRotate(){
 
 Vector2D Player::getDirection() const{
     return direction;
+}
+
+int Player::getScore() const{
+    return score;
+}
+
+bool Player::getIsLiving() const{
+    return isLiving;
 }
 
 void Player::updateSpeed(){

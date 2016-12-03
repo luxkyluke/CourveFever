@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     ctrlkey.cpp \
     gameitem.cpp \
     collision.cpp \
-    canvas.cpp
+    canvas.cpp \
+    exception.cpp
 
 FORMS    += mainwindow.ui
 
@@ -51,4 +52,5 @@ HEADERS += \
     game.h \
     ctrlkey.h \
     collision.h \
-    canvas.h
+    canvas.h \
+    myexception.h

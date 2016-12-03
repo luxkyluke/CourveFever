@@ -21,7 +21,7 @@ private:
 
     //bool isWall(QPointF pt);
     void drawBorders(QPainter& painter);
-    bool isBlack(QPointF pt); //check if pixel is black in position pt
+    bool isBlack(QPointF pt, QColor* c); //check if pixel is black in position pt
 
 public:
     Terrain(QWidget *parent =0);
@@ -39,7 +39,8 @@ public:
                           int *_x, int*_y);
     QPoint getCoordInImgDim(QPointF& pt);
     QPixmap getPic() const;
-    bool checkCollisions(Player* p);
+    bool isInCollision(Player* p, QColor *c);
+    bool isBordersColor(QColor c);
 
     //change coordinates x, y which have origin (0,0)
     //in the middle of the scene by coord (0,0) based

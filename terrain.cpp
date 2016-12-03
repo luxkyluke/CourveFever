@@ -3,6 +3,8 @@
 #include <iostream>
 #include <QPoint>
 
+static const QColor BLACK_COLOR(0, 0, 0, 255);
+static const QColor WHITE_COLOR(255, 255, 255, 255);
 
 int Terrain::getWidth() const{
     return width;
@@ -25,7 +27,7 @@ int Terrain::getHeight() const{
 //}
 
 void Terrain::drawBorders(QPainter& painter){
-    QPen pen( Qt::white );
+    QPen pen(WHITE_COLOR); //Qt::white
     pen.setWidth(5);
 
     painter.setPen(pen);
@@ -82,22 +84,26 @@ QPixmap Terrain::getPic() const{
     return pic;
 }
 
-bool Terrain::isBlack(QPointF pt){
+bool Terrain::isBlack(QPointF pt, QColor *c){
     QImage pixels = pic.toImage();
     QPoint coordsInIMG = getCoordInImgDim(pt);
-    return pixels.pixelColor(coordsInIMG) == QColor(0, 0, 0, 255);
+    *c = pixels.pixelColor(coordsInIMG);
+    return(*c == BLACK_COLOR);
 }
 
-bool Terrain::checkCollisions(Player* p){
+bool Terrain::isInCollision(Player* p, QColor* c){
     QVector<QPointF> pts = p->getCollisionPoints();
     foreach(QPointF pt, pts){
-        if(!isBlack(pt)){
-            std::cout <<"point "<<pt<<endl;
+        if(!isBlack(pt, c)){
             std::cout<<"MORT"<<std::endl;
-            return false;
+            return true;
         }
     }
-    return true;
+    return false;
+}
+
+bool Terrain::isBordersColor(QColor c){
+    return c==WHITE_COLOR;
 }
 
 
