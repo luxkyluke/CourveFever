@@ -4,22 +4,24 @@
 #include <QImage>
 #include <QColor>
 #include <QWidget>
+#include <QVector>
 #include "player.h"
 
 class Game;
 
+
 class Terrain : public QWidget{
+private:
     //Matrix pixels;
     const Game* game;
-    QImage pixels;
+
     QPixmap pic;
     int width, height;
-    QPointF facePt ;
-    QPointF rightPt;
-    QPointF leftPt ;
-    QPointF halfRightPt;
-    QPointF halfLeftPt ;
+    bool isNoBorder;
 
+    //bool isWall(QPointF pt);
+    void drawBorders(QPainter& painter);
+    bool isBlack(QPointF pt); //check if pixel is black in position pt
 
 public:
     Terrain(QWidget *parent =0);
@@ -27,9 +29,9 @@ public:
                      int h, QWidget *parent =0);
     int getWidth() const;
     int getHeight() const;
-    QImage& getPixels();
-    QColor getPixel(int x, int y);
-    QColor getPixel(QPointF& pt);
+//    QImage& getPixels();
+//    QColor getPixel(int x, int y);
+//    QColor getPixel(QPointF& pt);
     //void update(QGLWidget* renderer);
     void paintEvent(QPaintEvent *pe);
 
@@ -44,10 +46,6 @@ public:
     //in left top of the img
     int getXImgCoord(const float x);
     int getYImgCoord(const float y);
-
-    QPointF getFacePt() const;
-    QPointF getRightPt() const;
-    QPointF getLeftPt() const;
 };
 
 

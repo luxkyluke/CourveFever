@@ -80,7 +80,8 @@ void Game::refresh(){
     //window.repaintRenderer();
     //terrain.update();
     foreach(Player* p, players){
-        terrain.checkCollisions(p);
+        if(!terrain.checkCollisions(p));
+
     }
 }
 

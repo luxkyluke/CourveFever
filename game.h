@@ -1,6 +1,5 @@
 #ifndef GAME_H
 #define GAME_H
-#include <QVector>
 #include <QObject>
 #include "terrain.h"
 #include "player.h"

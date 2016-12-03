@@ -12,7 +12,7 @@ Circle::Circle(float rad, QPointF center){
     position = center;
 }
 
-QPointF Circle::getPosition(){
+QPointF Circle::getPosition() const{
     return GameItem::getPosition();
 }
 

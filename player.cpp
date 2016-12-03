@@ -9,6 +9,7 @@ const static float DEFAULT_RADIUS = 10.;
 const static Vector2D DEFAULT_DIR = Vector2D(0., 1.);
 const static Vector2D DEFAULT_SPEED = Vector2D(0., 0.);
 const static float DEFAULT_ANGLE = 3;
+const static int COLLISION_DISTANCE = 11;
 
 Player::Player(): direction(DEFAULT_DIR),
             Circle(DEFAULT_RADIUS, DEFAULT_POSITION),
@@ -34,7 +35,7 @@ void Player::moov(){
     updatePosition();
 }
 
-QPointF Player::getPosition(){
+QPointF Player::getPosition() const{
     return Circle::getPosition();
 }
 
@@ -80,6 +81,27 @@ bool Player::checkKey(QKeyEvent* event){
     return true;
 }
 
+QPointF getPointbyAngle(const float angle){
+    qreal nx = qreal(-sin((M_PI * angle) / 180.));
+    qreal ny = qreal(cos((M_PI * angle) / 180.));
+    return QPointF(nx, ny);
+}
+
+QVector<QPointF> Player::getCollisionPoints() const{
+    const Vector2D pos = this->getPosition();
+    const float angle = this->getAngle();
+    QVector<QPointF> pts;
+
+    pts.append(pos + getPointbyAngle(angle)*COLLISION_DISTANCE);
+    pts.append(pos + getPointbyAngle(angle+45)*COLLISION_DISTANCE);
+    pts.append(pos + getPointbyAngle(angle+90)*COLLISION_DISTANCE);
+    pts.append(pos + getPointbyAngle(angle-45)*COLLISION_DISTANCE);
+    pts.append(pos + getPointbyAngle(angle-90)*COLLISION_DISTANCE);
+
+
+    return pts;
+}
+
 float Player::getAngle() const{
     return angle;
 }
@@ -90,11 +112,11 @@ void Player::setAngle(float value){
 
 void Player::drawItem(QPainter *painter)const{
     Circle::drawItem(painter);
-   // painter->setBrush(QColor::fromRgbF(0, 1, 1, 1));
-//    painter->drawEllipse(direction, 2, 2);
-
-
-    //std::cout << "direction " << direction*100 <<std::endl;
+    painter->setBrush(QColor::fromRgbF(1, 0, 0, 1));
+    QVector<QPointF> points = this->getCollisionPoints();
+//    foreach(QPointF pt, points){
+//        painter->drawEllipse(pt, 2, 2);
+//    }
 }
 
 
@@ -108,8 +130,7 @@ void Player::updateRotate(){
     }
 }
 
-Vector2D Player::getDirection() const
-{
+Vector2D Player::getDirection() const{
     return direction;
 }
 

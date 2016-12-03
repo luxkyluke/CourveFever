@@ -1,11 +1,15 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include <iostream>
 #include <QKeyEvent>
+#include <QVector>
+
 #include "circle.h"
 #include "vector2D.h"
 #include "matrix.h"
 #include "ctrlKey.h"
+
 
 
 //https://www.codeproject.com/Articles/3274/Drawing-Arrows
@@ -36,7 +40,7 @@ public:
     Player();
     Player(int rKey, int lKey);
     void moov();
-    QPointF getPosition();
+    QPointF getPosition() const;
 
     bool getRun() const;
     void setRun(bool value);
@@ -44,6 +48,7 @@ public:
 //    void setTurn(int value);
     bool isACrtlKey(int key);
     bool checkKey(QKeyEvent* event);
+    QVector<QPointF> getCollisionPoints() const ;
 
     float getAngle() const;
     void setAngle(float value);
