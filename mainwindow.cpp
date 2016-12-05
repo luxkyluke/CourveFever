@@ -33,10 +33,10 @@ void MainWindow::setCanvas(Terrain* t){
     canva = t;
 }
 
-void MainWindow::keyPressEvent(QKeyEvent* event) {
+void MainWindow::keyPressEvent() {
 }
 
-void MainWindow::keyReleaseEvent(QKeyEvent* event){
+void MainWindow::keyReleaseEvent(){
 }
 
 //void MainWindow::repaintRenderer(){

@@ -66,7 +66,7 @@ Player &Game::getPlayer(QColor c){
         if(p->isMyColor(c))
             return *p;
     }
-    throw ;
+    throw std::invalid_argument("Is not a player color");
 }
 
 void Game::draw(QPainter *painter)const{
@@ -99,7 +99,8 @@ void Game::checkCollision(){
                 Player killer = getPlayer(c);
                 killer.increaseScore();
             }catch(exception& e){
-                cout << "Is not a player color" << endl;
+                cout << e.what() << endl;
+                exit(EXIT_FAILURE);
             }
 
         }

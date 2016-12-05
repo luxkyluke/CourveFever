@@ -18,8 +18,8 @@ class MainWindow : public QMainWindow{
 public:
     //explicit MainWindow(QWidget *parent = 0);
     explicit MainWindow(const int w, const int h, QWidget *parent = 0);
-    void keyPressEvent(QKeyEvent* event);
-    void keyReleaseEvent(QKeyEvent* event);
+    void keyPressEvent();
+    void keyReleaseEvent();
     //void repaintRenderer();
     void paintEvent(QPaintEvent *e);
     void setCanvas(Terrain* t);
