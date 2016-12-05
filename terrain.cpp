@@ -95,7 +95,6 @@ bool Terrain::isInCollision(Player* p, QColor* c){
     QVector<QPointF> pts = p->getCollisionPoints();
     foreach(QPointF pt, pts){
         if(!isBlack(pt, c)){
-            std::cout<<"MORT"<<std::endl;
             return true;
         }
     }

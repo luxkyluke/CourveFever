@@ -3,7 +3,6 @@
 #include <QTimer>
 #include <iostream>
 #include <iostream>
-#include "myexception.h"
 
 using namespace std;
 

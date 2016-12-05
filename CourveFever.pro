@@ -32,7 +32,7 @@ SOURCES += main.cpp\
     gameitem.cpp \
     collision.cpp \
     canvas.cpp \
-    exception.cpp
+    biggerbonus.cpp
 
 FORMS    += mainwindow.ui
 
@@ -53,4 +53,4 @@ HEADERS += \
     ctrlkey.h \
     collision.h \
     canvas.h \
-    myexception.h
+    biggerbonus.h
