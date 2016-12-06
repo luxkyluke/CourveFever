@@ -21,6 +21,7 @@ Player::Player(): direction(DEFAULT_DIR),
     score =0;
     turn = 0;
     angle = 0.;
+    srand(time(NULL));
     int r = rand() %185 + 70;
     int g = rand() %185 + 70;
     int b = rand() %185 + 70;

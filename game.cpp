@@ -29,6 +29,8 @@ Game::Game(const int w, const int h, Player* p1) :
     timer->start(FRAME_DURATION);
 
     addPlayer(p1);
+    addBonus(BiggerBonus(w, h));
+
     window->show();
 }
 
@@ -81,6 +83,10 @@ int Game::getWidth() const{
 
 int Game::getHeight() const{
     return terrain.getHeight();
+}
+
+void Game::addBonus(Bonus *b){
+    bonus.append(b);
 }
 
 void Game::checkCollision(){

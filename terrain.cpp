@@ -1,7 +1,7 @@
 #include "terrain.h"
 #include "game.h"
 #include <iostream>
-#include <QPoint>
+
 
 static const QColor BLACK_COLOR(0, 0, 0, 255);
 static const QColor WHITE_COLOR(255, 255, 255, 255);
@@ -72,12 +72,24 @@ QPoint Terrain::getCoordInImgDim(QPointF &pt){
     return QPoint(getXImgCoord(pt.x()), getYImgCoord(pt.y()));
 }
 
+QPointF Terrain::getCoordInLandmarkDim(QPoint &pt){
+    return QPointF(getXLandmarkCoord(pt.x()), getYLandmarkCoord(pt.y()));
+}
+
 int Terrain::getXImgCoord(const float x){
     return x +(width/2);
 }
 
+float Terrain::getXLandmarkCoord(const int x){
+    return x -(width/2);
+}
+
 int Terrain::getYImgCoord(const float y){
      return -y + (height/2);
+}
+
+float Terrain::getYLandmarkCoord(const int y){
+    return -y + (height/2);
 }
 
 QPixmap Terrain::getPic() const{

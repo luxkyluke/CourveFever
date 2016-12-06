@@ -5,7 +5,7 @@
 
 class BiggerBonus: public Bonus{
 public:
-    BiggerBonus(QPointF pos);
+    BiggerBonus(int w, int h);
     void apply()const;
 };
 

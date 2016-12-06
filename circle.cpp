@@ -1,7 +1,7 @@
 #include "circle.h"
 #include <QColor>
 
-static const QColor DEFAULT_COLOR(255, 255, 255, 255);
+
 
 QColor Circle::getColor() const
 {
@@ -19,11 +19,12 @@ Circle::Circle(){
     color = DEFAULT_COLOR;
 }
 
-Circle::Circle(float rad, QPointF center){
+
+Circle::Circle(float rad, QPointF center, QColor c){
     radius = rad;
     radius_squared = rad*rad;
     position = center;
-    color = DEFAULT_COLOR;
+    color = c;
 }
 
 QPointF Circle::getPosition() const{

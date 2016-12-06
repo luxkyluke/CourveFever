@@ -16,7 +16,7 @@ protected:
 
 public:
     Bonus();
-    Bonus(QPointF pos);
+    Bonus(int w, int h, QColor color);
     virtual void apply()const =0;
 
 };

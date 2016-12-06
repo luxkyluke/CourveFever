@@ -2,6 +2,7 @@
 #define CIRCLE_H
 #include "gameitem.h"
 
+static const QColor DEFAULT_COLOR(255, 255, 255, 255);
 
 class Circle : public GameItem{
     float radius;
@@ -10,7 +11,7 @@ class Circle : public GameItem{
 
 public:
     Circle();
-    Circle(float rad, QPointF center);
+    Circle(float rad, QPointF center, QColor c =DEFAULT_COLOR);
     QPointF getPosition() const;
     void drawItem(QPainter *painter) const;
     QColor getColor() const;
