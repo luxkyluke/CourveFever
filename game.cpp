@@ -1,8 +1,11 @@
-#include "game.h"
 #include <iostream>
 #include <QTimer>
 #include <iostream>
 #include <iostream>
+
+#include "game.h"
+#include "biggerbonus.h"
+
 
 using namespace std;
 
@@ -29,7 +32,7 @@ Game::Game(const int w, const int h, Player* p1) :
     timer->start(FRAME_DURATION);
 
     addPlayer(p1);
-    addBonus(BiggerBonus(w, h));
+    addBonus(new BiggerBonus(w, h));
 
     window->show();
 }

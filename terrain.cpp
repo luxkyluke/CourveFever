@@ -72,24 +72,24 @@ QPoint Terrain::getCoordInImgDim(QPointF &pt){
     return QPoint(getXImgCoord(pt.x()), getYImgCoord(pt.y()));
 }
 
-QPointF Terrain::getCoordInLandmarkDim(QPoint &pt){
-    return QPointF(getXLandmarkCoord(pt.x()), getYLandmarkCoord(pt.y()));
+QPointF Terrain::getCoordInLandmarkDim(QPoint &pt, const int w, const int h){
+    return QPointF(getXLandmarkCoord(pt.x(), w), getYLandmarkCoord(pt.y(), h));
 }
 
 int Terrain::getXImgCoord(const float x){
     return x +(width/2);
 }
 
-float Terrain::getXLandmarkCoord(const int x){
-    return x -(width/2);
+float Terrain::getXLandmarkCoord(const int x, const int w){
+    return x -(w/2);
 }
 
 int Terrain::getYImgCoord(const float y){
      return -y + (height/2);
 }
 
-float Terrain::getYLandmarkCoord(const int y){
-    return -y + (height/2);
+float Terrain::getYLandmarkCoord(const int y, const int h){
+    return -y + (h/2);
 }
 
 QPixmap Terrain::getPic() const{
