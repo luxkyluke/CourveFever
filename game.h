@@ -13,6 +13,7 @@ private:
     Q_OBJECT
     QVector<Player*> players;
     QVector<Bonus*> bonus;
+    QTimer* timer;
     Terrain terrain;
     int nbLivingPlayers;
 

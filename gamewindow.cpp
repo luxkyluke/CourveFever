@@ -28,7 +28,6 @@ GameWindow::GameWindow(const int w, const int h, QWidget *parent):QMainWindow(pa
     scoreWidget = new QWidget();
     titre = new QLabel("scores",scoreWidget);
 
-    //scoreLabel->resize(SCORE_LABEL_WIDTH, h);
     titre->setStyleSheet("QLabel { background-color : red; color : blue; }");
     QWidget* mainWidget = new QWidget();
     this->setCentralWidget(mainWidget);

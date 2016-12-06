@@ -27,7 +27,7 @@ Game::Game(const int w, const int h, Player* p1) :
     //terrain.setParent(window);
     window->setCanvas(&terrain);
 
-    QTimer* timer = new QTimer(this);
+    timer = new QTimer(this);
     QObject::connect(timer, SIGNAL(timeout()), this, SLOT(refresh()));
     timer->start(FRAME_DURATION);
 
@@ -123,7 +123,8 @@ void Game::refresh(){
     }
     else{
         cout << "C'EST LA FIN"<<endl;
-        exit(0);
+        timer->stop();
+//        exit(0);
     }
 }
 
