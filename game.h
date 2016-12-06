@@ -5,7 +5,7 @@
 #include "player.h"
 #include "bonus.h"
 
-#include "mainwindow.h"
+#include "gamewindow.h"
 
 
 class Game : public QObject{

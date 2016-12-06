@@ -8,12 +8,13 @@
 using namespace std;
 
 const static float DEFAULT_ACCELERATION = 1.5;
+//a changer pour le multijoueur ! Aléatoir autour du centre
 const static QPointF DEFAULT_POSITION = QPointF(0., 0.);
-const static float DEFAULT_RADIUS = 10.;
+const static float DEFAULT_RADIUS = 5.;
 const static Vector2D DEFAULT_DIR = Vector2D(0., 1.);
 const static Vector2D DEFAULT_SPEED = Vector2D(0., 0.);
 const static float DEFAULT_ANGLE = 3;
-const static int COLLISION_DISTANCE = 11;
+const static int COLLISION_DISTANCE = 6;
 
 Player::Player(): direction(DEFAULT_DIR),
             Circle(DEFAULT_RADIUS, DEFAULT_POSITION),

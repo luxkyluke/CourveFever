@@ -16,7 +16,6 @@ LIBS += -LD:\Qt\Tools\mingw492_32\lib \
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
     player.cpp \
     circle.cpp \
     bonus.cpp \
@@ -32,14 +31,14 @@ SOURCES += main.cpp\
     gameitem.cpp \
     collision.cpp \
     canvas.cpp \
-    biggerbonus.cpp
+    biggerbonus.cpp \
+    gamewindow.cpp
 
 FORMS    += mainwindow.ui
 
 HEADERS += \
     bonus.h \
     circle.h \
-    mainwindow.h \
     player.h \
     terrain.h \
     renderer.h \
@@ -53,4 +52,5 @@ HEADERS += \
     ctrlkey.h \
     collision.h \
     canvas.h \
-    biggerbonus.h
+    biggerbonus.h \
+    gamewindow.h

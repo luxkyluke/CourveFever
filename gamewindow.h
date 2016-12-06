@@ -9,21 +9,22 @@
 class Terrain;
 class Game;
 
-class MainWindow : public QMainWindow{
+class GameWindow : public QMainWindow{
 
     Terrain* canva;
-    QLabel* label;
-    //Game* game;
+    QLabel *terrainLabel, *titre;
+    std::list<QLabel> scores;
+    QWidget* scoreWidget;
 
 public:
     //explicit MainWindow(QWidget *parent = 0);
-    explicit MainWindow(const int w, const int h, QWidget *parent = 0);
+    explicit GameWindow(const int w, const int h, QWidget *parent = 0);
     void keyPressEvent();
     void keyReleaseEvent();
     //void repaintRenderer();
     void paintEvent(QPaintEvent *e);
     void setCanvas(Terrain* t);
-    ~MainWindow();
+    ~GameWindow();
 
 
     //Canvas *getRenderer() const;

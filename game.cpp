@@ -21,7 +21,7 @@ Game::Game(const int w, const int h, Player* p1) :
         terrain(this, w, h){
     nbLivingPlayers = 0;
 
-    MainWindow* window = new MainWindow(w, h);
+    GameWindow* window = new GameWindow(w, h);
     window->installEventFilter(this);
 
     //terrain.setParent(window);
