@@ -11,6 +11,11 @@ MenuWindow::MenuWindow(QWidget *parent) :
     ui->pseudoTextEdit->setText("Player1");
     QObject::connect(ui->pseudoTextEdit, SIGNAL(textChanged()),
                      this, SLOT(checkTextEditWidth()));
+    
+}
+
+void MenuWindow::keyPressEvent(QKeyEvent* e){
+        
 }
 
 MenuWindow::~MenuWindow(){

@@ -1,5 +1,4 @@
 #include "gamewindow.h"
-#include "ui_mainwindow.h"
 #include "terrain.h"
 #include "game.h"
 #include <iostream>
@@ -18,17 +17,21 @@
 
 const static int SCORE_LABEL_WIDTH = 300;
 
-GameWindow::GameWindow(const int w, const int h, QWidget *parent):QMainWindow(parent){
+GameWindow::GameWindow(const int w, const int h,
+            QVector<Player *> *_scores, QWidget *parent):
+    QMainWindow(parent){
     this->resize(w+SCORE_LABEL_WIDTH, h);
 
     terrainLabel = new QLabel("terrain");
 
-
-
     scoreWidget = new QWidget();
     titre = new QLabel("scores",scoreWidget);
 
-    titre->setStyleSheet("QLabel { background-color : red; color : blue; }");
+    scores = _scores;
+
+
+
+    //titre->setStyleSheet("QLabel { background-color : red; color : blue; }");
     QWidget* mainWidget = new QWidget();
     this->setCentralWidget(mainWidget);
     QHBoxLayout *mainLayout = new QHBoxLayout();
@@ -44,6 +47,10 @@ void GameWindow::setCanvas(Terrain* t){
     canva = t;
     terrainLabel->resize(t->getWidth(), t->getHeight());
 }
+
+//void GameWindow::addPlayerToScoreTab(const Player *p){
+
+//}
 
 void GameWindow::keyPressEvent() {
 }

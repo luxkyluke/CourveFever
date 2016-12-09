@@ -10,6 +10,8 @@ class MenuWindow : public QMainWindow{
     Q_OBJECT
 public:
     explicit MenuWindow(QWidget *parent=0);
+    
+    void keyPressEvent();
     ~MenuWindow();
 
 private:

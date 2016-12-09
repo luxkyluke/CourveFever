@@ -17,11 +17,16 @@ const static int FRAME_DURATION = 17;
 
 //}
 
-Game::Game(const int w, const int h, Player* p1) :
+Game::Game(const int w, const int h) :
         terrain(this, w, h){
     nbLivingPlayers = 0;
 
-    GameWindow* window = new GameWindow(w, h);
+    Player *p1= new Player(Qt::Key_Right, Qt::Key_Left);
+
+
+    addPlayer(p1);
+
+    GameWindow* window = new GameWindow(w, h, &players);
     window->installEventFilter(this);
 
     //terrain.setParent(window);
@@ -31,7 +36,7 @@ Game::Game(const int w, const int h, Player* p1) :
     QObject::connect(timer, SIGNAL(timeout()), this, SLOT(refresh()));
     timer->start(FRAME_DURATION);
 
-    addPlayer(p1);
+
     addBonus(new BiggerBonus(w, h));
 
     window->show();

@@ -34,7 +34,8 @@ SOURCES += main.cpp\
     biggerbonus.cpp \
     gamewindow.cpp
 
-FORMS    += mainwindow.ui
+FORMS    += \
+    menuwindow.ui
 
 HEADERS += \
     bonus.h \

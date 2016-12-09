@@ -22,7 +22,7 @@ private:
     void checkCollision();
 
 public:
-    Game(const int w, const int h, Player *p);
+    Game(const int w, const int h);
     void addPlayer(Player *p);
     bool keyEvent(QKeyEvent* event);
     void draw(QPainter *painter) const;
