@@ -17,13 +17,26 @@ MenuWindow::MenuWindow(QWidget *parent) :
 
     initWindow();
 
-
-
-
 }
 
 void MenuWindow::initWindow(){
     ui->WidgetPlayer_1->setVisible(false);
+    ui->WidgetPlayer_2->setVisible(false);
+    ui->WidgetPlayer_3->setVisible(false);
+    ui->WidgetPlayer_4->setVisible(false);
+    ui->WidgetPlayer_5->setVisible(false);
+
+    ui->checkBoxPlayer2->setVisible(false);
+    ui->checkBoxPlayer3->setVisible(false);
+    ui->checkBoxPlayer4->setVisible(false);
+    ui->checkBoxPlayer5->setVisible(false);
+
+    ui->pseudoTextEdit_5->installEventFilter(this);
+    ui->pseudoTextEdit_2->installEventFilter(this);
+    ui->pseudoTextEdit_3->installEventFilter(this);
+    ui->pseudoTextEdit_4->installEventFilter(this);
+    ui->pseudoTextEdit_7->installEventFilter(this);
+    ui->pseudoTextEdit_8->installEventFilter(this);
 
 //    ui->pseudoTextEdit->setText("Player1");
 //    QObject::connect(ui->pseudoTextEdit, SIGNAL(textChanged()),
@@ -44,14 +57,16 @@ void MenuWindow::addPlayer(){
 }
 
 bool MenuWindow::eventFilter(QObject *object, QEvent *event) {
-    if (object == ui->pseudoTextEdit_8 && event->type() == QEvent::KeyPress){
+    //qDebug("ge");
+    if (event->type() == QEvent::KeyPress){
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
-
-        if (keyEvent->key() == Qt::Key_A)	{
-            qDebug("Enter Key Pressed...");
-            qDebug()<<keyEvent->key();
-            return true;
-        }
+        QTextEdit *champs = qobject_cast<QTextEdit*> (object);
+        if(champs != NULL)
+            if (keyEvent->key() == Qt::Key_A)	{
+                qDebug("Enter Key Pressed...");
+                qDebug()<<keyEvent->key();
+                return true;
+            }
     }
     return QWidget::eventFilter(object,event);
 }
@@ -68,12 +83,35 @@ void MenuWindow::checkTextEditWidth(){
     }
 }
 
-void MenuWindow::on_checkBox_clicked(bool checked){
-    ui->WidgetPlayer_1->setVisible(true);
+
+void MenuWindow::on_checkBoxPlayer1_clicked(bool checked){
+    ui->WidgetPlayer_1->setVisible(checked);
+    ui->checkBoxPlayer2->setVisible(checked);
+    if(ui->checkBoxPlayer2->isChecked())
+        ui->checkBoxPlayer2->click();
 }
 
+void MenuWindow::on_checkBoxPlayer2_clicked(bool checked){
+    ui->WidgetPlayer_2->setVisible(checked);
+    ui->checkBoxPlayer3->setVisible(checked);
+    if(ui->checkBoxPlayer3->isChecked())
+        ui->checkBoxPlayer3->click();
+}
 
-void MenuWindow::on_WidgetPlayer_0_objectNameChanged(const QString &objectName)
-{
+void MenuWindow::on_checkBoxPlayer3_clicked(bool checked){
+    ui->WidgetPlayer_3->setVisible(checked);
+    ui->checkBoxPlayer4->setVisible(checked);
+    if(ui->checkBoxPlayer4->isChecked())
+        ui->checkBoxPlayer4->click();
+}
 
+void MenuWindow::on_checkBoxPlayer4_clicked(bool checked){
+    ui->WidgetPlayer_4->setVisible(checked);
+    ui->checkBoxPlayer5->setVisible(checked);
+    if(ui->checkBoxPlayer5->isChecked())
+        ui->checkBoxPlayer5->click();
+}
+
+void MenuWindow::on_checkBoxPlayer5_clicked(bool checked){
+    ui->WidgetPlayer_5->setVisible(checked);
 }

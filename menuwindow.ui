@@ -142,7 +142,7 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>330</y>
+      <y>260</y>
       <width>621</width>
       <height>61</height>
      </rect>
@@ -230,7 +230,7 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>260</y>
+      <y>330</y>
       <width>621</width>
       <height>61</height>
      </rect>
@@ -318,7 +318,7 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>470</y>
+      <y>400</y>
       <width>621</width>
       <height>61</height>
      </rect>
@@ -406,7 +406,7 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>400</y>
+      <y>470</y>
       <width>621</width>
       <height>61</height>
      </rect>
@@ -490,7 +490,7 @@
      </property>
     </widget>
    </widget>
-   <widget class="QCheckBox" name="checkBox">
+   <widget class="QCheckBox" name="checkBoxPlayer1">
     <property name="geometry">
      <rect>
       <x>80</x>
@@ -590,6 +590,58 @@
       <string>Player name</string>
      </property>
     </widget>
+   </widget>
+   <widget class="QCheckBox" name="checkBoxPlayer2">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>290</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>+</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBoxPlayer3">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>360</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>+</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBoxPlayer4">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>430</y>
+      <width>31</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>+</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBoxPlayer5">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>510</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>+</string>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>

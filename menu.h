@@ -38,8 +38,11 @@ public slots:
     void checkTextEditWidth();
 
 private slots:
-    void on_checkBox_clicked(bool checked);
-    void on_WidgetPlayer_0_objectNameChanged(const QString &objectName);
+    void on_checkBoxPlayer1_clicked(bool checked);
+    void on_checkBoxPlayer2_clicked(bool checked);
+    void on_checkBoxPlayer3_clicked(bool checked);
+    void on_checkBoxPlayer4_clicked(bool checked);
+    void on_checkBoxPlayer5_clicked(bool checked);
 };
 
 
