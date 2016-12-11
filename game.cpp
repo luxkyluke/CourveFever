@@ -10,6 +10,8 @@
 using namespace std;
 
 const static int FRAME_DURATION = 17;
+static const int WIDTH = 800;
+static const int HEIGHT = 800;
 
 
 //Game::Game(): terrain(),
@@ -17,16 +19,23 @@ const static int FRAME_DURATION = 17;
 
 //}
 
-Game::Game(const int w, const int h) :
-        terrain(this, w, h){
+Game::Game(){
+
+}
+
+Game::Game(QVector<Player *> &_players) :
+        terrain(this, WIDTH, HEIGHT){
     nbLivingPlayers = 0;
 
-    Player *p1= new Player("michel", Qt::Key_Right, Qt::Key_Left);
+    //Player *p1= new Player("michel", Qt::Key_Right, Qt::Key_Left);
 
 
-    addPlayer(p1);
+    //addPlayer(p1);
+    players = _players;
 
-    GameWindow* window = new GameWindow(w, h, &players);
+    nbLivingPlayers = players.size();
+
+    window = new GameWindow(WIDTH, HEIGHT, &players);
     window->installEventFilter(this);
 
     //terrain.setParent(window);
@@ -37,7 +46,7 @@ Game::Game(const int w, const int h) :
     timer->start(FRAME_DURATION);
 
 
-    addBonus(new BiggerBonus(w, h));
+    addBonus(new BiggerBonus(WIDTH, HEIGHT));
 
     window->show();
 }
@@ -146,4 +155,8 @@ bool Game::eventFilter(QObject *object, QEvent *event){
         return true;
     }
     return false;
+}
+
+void Game::play(){
+    window->show();
 }

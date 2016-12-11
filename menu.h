@@ -5,6 +5,7 @@
 #include <QEvent>
 #include <QVector>
 #include <stdlib.h>
+#include "game.h"
 
 namespace Ui {
 class MenuWindow;
@@ -14,10 +15,12 @@ class MenuWindow;
 class MenuWindow : public QMainWindow{
     Q_OBJECT
 
+    //Game* game;
+
     void initWindow();
 
 public:
-    explicit MenuWindow(QWidget *parent=0);
+    explicit MenuWindow( QWidget *parent=0);
 
     bool eventFilter(QObject *object, QEvent *event);
 

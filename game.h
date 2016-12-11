@@ -16,13 +16,15 @@ private:
     QTimer* timer;
     Terrain terrain;
     int nbLivingPlayers;
+    GameWindow* window;
 
     void updateScene();
     Player& getPlayer(QColor c);
     void checkCollision();
 
 public:
-    Game(const int w, const int h);
+    Game();
+    Game(QVector<Player*>& _players);
     void addPlayer(Player *p);
     bool keyEvent(QKeyEvent* event);
     void draw(QPainter *painter) const;
@@ -30,7 +32,7 @@ public:
     int getHeight() const;
     void addBonus(Bonus* b);
     bool eventFilter(QObject *object, QEvent *event);
-
+    void play();
 
     Terrain* getTerrain();
 

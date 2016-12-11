@@ -1,9 +1,12 @@
 #ifndef PLAY_H
 #define PLAY_H
 
+#include "menu.h"
 
-class Play
-{
+class Play{
+
+//    MenuWindow menu;
+//    Game *game;
 public:
     Play();
 };

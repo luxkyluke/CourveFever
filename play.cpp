@@ -1,6 +1,9 @@
 #include "play.h"
 
-Play::Play()
-{
-
+Play::Play(){
+    //menu.show();
+    //menu.hide();
+    //game->play();
+    //menu.show();
 }
+

@@ -5,7 +5,7 @@
 
 #include "menu.h"
 #include "ui_menuwindow.h"
-#include "player.h"
+
 
 
 static int ID_INCREMENTATOR=0;
@@ -17,11 +17,12 @@ static const QString RKEY_TEXT = "RKeyTextEdit";
 static const int PSEUDO_NB_MAX_CHAR = 25;
 static const int KEY_NB_MAX_CHAR = 1;
 
-MenuWindow::MenuWindow(QWidget *parent) :
+MenuWindow::MenuWindow( QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MenuWindow){
     ui->setupUi(this);
 
+    //game =g;
     //addPlayer();
 
     initWindow();
@@ -159,7 +160,10 @@ uint getKey(QString s){
     return key[0];
 }
 
-
+/*I know it's very dirty but i don't know qt designer as well
+to create generatively QWidget in the window
+so i choose an easy but dirty solution
+sorry about that*/
 void MenuWindow::on_StartButton_clicked(){
     uint RKey, LKey;
     QString pseudo, Rchar, Lchar;
@@ -168,21 +172,73 @@ void MenuWindow::on_StartButton_clicked(){
     pseudo = ui->pseudoTextEdit_1->toPlainText();
     Rchar = ui->RKeyTextEdit_1->toPlainText();
     Lchar = ui->LKeyTextEdit_1->toPlainText();
-    if(pseudo.size()+Rchar.size()+Lchar.size() < 3) return ;
+    if(pseudo.size()<1 || Rchar.size()<1 || Lchar.size() < 1) return ;
     RKey = getKey(Rchar);
     LKey = getKey(Lchar);
 
     players.append(new Player(pseudo, RKey, LKey));
-
     if(!ui->checkBoxPlayer1->isChecked()){
-
+        //this->hide();
+        new Game(players);
+        //this->show();
         return;
     }
+
     pseudo = ui->pseudoTextEdit_2->toPlainText();
     Rchar = ui->RKeyTextEdit_2->toPlainText();
     Lchar = ui->LKeyTextEdit_2->toPlainText();
-    if(pseudo.size()+Rchar.size()+Lchar.size() < 3) return ;
+    if(pseudo.size()<1 || Rchar.size()<1 || Lchar.size() < 1) return ;
     RKey = getKey(Rchar);
     LKey = getKey(Lchar);
     players.append(new Player(pseudo, RKey, LKey));
+    if(!ui->checkBoxPlayer2->isChecked()){
+        new Game(players);
+        return;
+    }
+
+    pseudo = ui->pseudoTextEdit_3->toPlainText();
+    Rchar = ui->RKeyTextEdit_3->toPlainText();
+    Lchar = ui->LKeyTextEdit_3->toPlainText();
+    if(pseudo.size()<1 || Rchar.size()<1 || Lchar.size() < 1) return ;
+    RKey = getKey(Rchar);
+    LKey = getKey(Lchar);
+    players.append(new Player(pseudo, RKey, LKey));
+    if(!ui->checkBoxPlayer3->isChecked()){
+        new Game(players);
+        return;
+    }
+
+    pseudo = ui->pseudoTextEdit_4->toPlainText();
+    Rchar = ui->RKeyTextEdit_4->toPlainText();
+    Lchar = ui->LKeyTextEdit_4->toPlainText();
+    if(pseudo.size()<1 || Rchar.size()<1 || Lchar.size() < 1) return ;
+    RKey = getKey(Rchar);
+    LKey = getKey(Lchar);
+    players.append(new Player(pseudo, RKey, LKey));
+    if(!ui->checkBoxPlayer4->isChecked()){
+        new Game(players);
+        return;
+    }
+
+    pseudo = ui->pseudoTextEdit_5->toPlainText();
+    Rchar = ui->RKeyTextEdit_5->toPlainText();
+    Lchar = ui->LKeyTextEdit_5->toPlainText();
+    if(pseudo.size()<1 || Rchar.size()<1 || Lchar.size() < 1) return ;
+    RKey = getKey(Rchar);
+    LKey = getKey(Lchar);
+    players.append(new Player(pseudo, RKey, LKey));
+    if(!ui->checkBoxPlayer5->isChecked()){
+        new Game(players);
+        return;
+    }
+
+    pseudo = ui->pseudoTextEdit_6->toPlainText();
+    Rchar = ui->RKeyTextEdit_6->toPlainText();
+    Lchar = ui->LKeyTextEdit_6->toPlainText();
+    if(pseudo.size()<1 || Rchar.size()<1 || Lchar.size() < 1) return ;
+    RKey = getKey(Rchar);
+    LKey = getKey(Lchar);
+    players.append(new Player(pseudo, RKey, LKey));
+
+    new Game(players);
 }

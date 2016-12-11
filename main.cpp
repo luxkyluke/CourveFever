@@ -4,8 +4,6 @@
 #include "game.h"
 #include "menu.h"
 
-static const int GAME_WIDTH = 800;
-static const int GAME_HEIGHT = 800;
 
 int main(int argc, char *argv[])
 {
@@ -15,7 +13,7 @@ int main(int argc, char *argv[])
     //g.play();
     MenuWindow m;
     m.show();
-
+    //Play p;
 
 //    Terrain t(9, 9);
 //    t.print();
