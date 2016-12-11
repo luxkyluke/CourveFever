@@ -1,7 +1,9 @@
 #include "player.h"
+#include "terrain.h"
 #include <math.h>
 #include <iostream>
 #include <stdlib.h>
+#include <windows.h>
 #include <ctime>
 
 
@@ -13,6 +15,7 @@ const static QPointF DEFAULT_POSITION = QPointF(0., 0.);
 const static float DEFAULT_RADIUS = 5.;
 const static Vector2D DEFAULT_DIR = Vector2D(0., 1.);
 const static Vector2D DEFAULT_SPEED = Vector2D(0., 0.);
+const static int RANDOM_POS_RANGE = 200;
 const static float DEFAULT_ANGLE = 3;
 const static int COLLISION_DISTANCE = 6;
 
@@ -30,17 +33,51 @@ Player::Player(): direction(DEFAULT_DIR),
     isLiving = true;
 }
 
+int gettimeofday(struct timeval* p, void* tz) {
+    ULARGE_INTEGER ul; // As specified on MSDN.
+    FILETIME ft;
+
+    // Returns a 64-bit value representing the number of
+    // 100-nanosecond intervals since January 1, 1601 (UTC).
+    GetSystemTimeAsFileTime(&ft);
+
+    // Fill ULARGE_INTEGER low and high parts.
+    ul.LowPart = ft.dwLowDateTime;
+    ul.HighPart = ft.dwHighDateTime;
+    // Convert to microseconds.
+    ul.QuadPart /= 10ULL;
+    // Remove Windows to UNIX Epoch delta.
+    ul.QuadPart -= 11644473600000000ULL;
+    // Modulo to retrieve the microseconds.
+    p->tv_usec = (long) (ul.QuadPart % 1000000LL);
+    // Divide to retrieve the seconds.
+    p->tv_sec = (long) (ul.QuadPart / 1000000LL);
+
+    return 0;
+}
+
+QPointF Player::getRandPos(){
+    QPointF randPos;
+    float randX = rand() %RANDOM_POS_RANGE;
+    float randY = rand() %RANDOM_POS_RANGE;
+    cout <<"\n"<< rand() << endl<<endl;
+    cout<<randX <<" "<<randY<<endl;
+    randPos = QPointF(randX, 0);
+    return randPos;
+}
+
 Player::Player(QString _pseudo, int rKey, int lKey): direction(DEFAULT_DIR),
-            Circle(DEFAULT_RADIUS, DEFAULT_POSITION),
+            Circle(DEFAULT_RADIUS, Player::getRandPos()),
             ctrlKeys(CtrlKey(rKey, lKey)),
             speed(DEFAULT_SPEED){
     score =0;
     angle = 0.;
     turn = 0;
-    srand(time(NULL));
+    //srand(time(NULL));
     int r = rand() %185 + 70;
     int g = rand() %185 + 70;
     int b = rand() %185 + 70;
+
     setColor(QColor(r, g, b, 255));
     isLiving = true;
     pseudo = _pseudo;
@@ -145,6 +182,11 @@ int Player::getScore() const{
 
 bool Player::getIsLiving() const{
     return isLiving;
+}
+
+QString Player::getPseudo() const
+{
+    return pseudo;
 }
 
 void Player::updateSpeed(){

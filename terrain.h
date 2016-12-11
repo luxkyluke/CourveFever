@@ -35,6 +35,7 @@ public:
     bool isInCollision(Player* p, QColor *c);
     bool isBordersColor(QColor c);
 
+
     //change coordinates x, y which have origin (0,0)
     //in the middle of the scene by coord (0,0) based
     //in left top of the img

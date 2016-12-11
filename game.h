@@ -33,8 +33,8 @@ public:
     void addBonus(Bonus* b);
     bool eventFilter(QObject *object, QEvent *event);
     void play();
-
     Terrain* getTerrain();
+    static bool isSafePosition(QPointF pos);
 
 public slots:
     void refresh();

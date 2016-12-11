@@ -2,6 +2,7 @@
 #include <QTimer>
 #include <iostream>
 #include <iostream>
+#include <QDebug>
 
 #include "game.h"
 #include "biggerbonus.h"
@@ -33,7 +34,13 @@ Game::Game(QVector<Player *> &_players) :
     //addPlayer(p1);
     players = _players;
 
+
     nbLivingPlayers = players.size();
+    cout<<"nb players = "<<nbLivingPlayers<<endl;
+
+    foreach(Player* p, players){
+        qDebug()<<p->getPseudo() << " " << p->getPosition();
+    }
 
     window = new GameWindow(WIDTH, HEIGHT, &players);
     window->installEventFilter(this);
@@ -159,4 +166,8 @@ bool Game::eventFilter(QObject *object, QEvent *event){
 
 void Game::play(){
     window->show();
+}
+
+bool Game::isSafePosition(QPointF pos){
+    return true;
 }

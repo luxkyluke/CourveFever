@@ -2,6 +2,7 @@
 #include <iostream>
 #include <QKeyEvent>
 #include <QDebug>
+#include <ctime>
 
 #include "menu.h"
 #include "ui_menuwindow.h"
@@ -168,6 +169,8 @@ void MenuWindow::on_StartButton_clicked(){
     uint RKey, LKey;
     QString pseudo, Rchar, Lchar;
     QVector<Player*> players;
+
+    srand(time(NULL));
 
     pseudo = ui->pseudoTextEdit_1->toPlainText();
     Rchar = ui->RKeyTextEdit_1->toPlainText();

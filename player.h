@@ -49,6 +49,8 @@ public:
     Vector2D getDirection() const;
     int getScore() const;
     bool getIsLiving() const;
+    QString getPseudo() const;
+    static QPointF getRandPos();
 };
 
 #endif // PLAYER_H
