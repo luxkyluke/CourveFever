@@ -4,6 +4,7 @@
 #include <iostream>
 #include <QKeyEvent>
 #include <QVector>
+#include <QString>
 
 #include "circle.h"
 #include "vector2D.h"
@@ -17,7 +18,7 @@ const static int NB_KEYS = 2;
 class Player : public Circle{
 
 private:
-    //Circle head;
+    QString pseudo;
     Vector2D direction,
            speed;
     int score,
@@ -33,7 +34,7 @@ private:
 
 public:
     Player();
-    Player(int rKey, int lKey);
+    Player(QString pseudo, int rKey, int lKey);
     void moov();
     QPointF getPosition() const;
     bool isMyColor(QColor c);

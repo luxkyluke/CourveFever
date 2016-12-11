@@ -30,7 +30,7 @@ Player::Player(): direction(DEFAULT_DIR),
     isLiving = true;
 }
 
-Player::Player(int rKey, int lKey): direction(DEFAULT_DIR),
+Player::Player(QString _pseudo, int rKey, int lKey): direction(DEFAULT_DIR),
             Circle(DEFAULT_RADIUS, DEFAULT_POSITION),
             ctrlKeys(CtrlKey(rKey, lKey)),
             speed(DEFAULT_SPEED){
@@ -43,6 +43,7 @@ Player::Player(int rKey, int lKey): direction(DEFAULT_DIR),
     int b = rand() %185 + 70;
     setColor(QColor(r, g, b, 255));
     isLiving = true;
+    pseudo = _pseudo;
 }
 
 void Player::moov(){

@@ -1,19 +1,28 @@
-#include "menu.h"
-#include "ui_menuwindow.h"
-
 #include <QString>
 #include <iostream>
 #include <QKeyEvent>
 #include <QDebug>
 
+#include "menu.h"
+#include "ui_menuwindow.h"
+#include "player.h"
+
+
 static int ID_INCREMENTATOR=0;
+
+static const QString PSEUDO_TEXT = "pseudoTextEdit";
+static const QString LKEY_TEXT = "LKeyTextEdit";
+static const QString RKEY_TEXT = "RKeyTextEdit";
+
+static const int PSEUDO_NB_MAX_CHAR = 25;
+static const int KEY_NB_MAX_CHAR = 1;
 
 MenuWindow::MenuWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MenuWindow){
     ui->setupUi(this);
 
-    addPlayer();
+    //addPlayer();
 
     initWindow();
 
@@ -31,42 +40,74 @@ void MenuWindow::initWindow(){
     ui->checkBoxPlayer4->setVisible(false);
     ui->checkBoxPlayer5->setVisible(false);
 
-    ui->pseudoTextEdit_5->installEventFilter(this);
+    ui->pseudoTextEdit_1->installEventFilter(this);
     ui->pseudoTextEdit_2->installEventFilter(this);
     ui->pseudoTextEdit_3->installEventFilter(this);
     ui->pseudoTextEdit_4->installEventFilter(this);
-    ui->pseudoTextEdit_7->installEventFilter(this);
-    ui->pseudoTextEdit_8->installEventFilter(this);
+    ui->pseudoTextEdit_5->installEventFilter(this);
+    ui->pseudoTextEdit_6->installEventFilter(this);
 
-//    ui->pseudoTextEdit->setText("Player1");
-//    QObject::connect(ui->pseudoTextEdit, SIGNAL(textChanged()),
-//                     this, SLOT(checkTextEditWidth()));
-//    ui->pseudoTextEdit->installEventFilter(this);
-//    foreach(player* p, players){
+    ui->LKeyTextEdit_1->installEventFilter(this);
+    ui->LKeyTextEdit_2->installEventFilter(this);
+    ui->LKeyTextEdit_3->installEventFilter(this);
+    ui->LKeyTextEdit_4->installEventFilter(this);
+    ui->LKeyTextEdit_5->installEventFilter(this);
+    ui->LKeyTextEdit_6->installEventFilter(this);
 
-//    }
+    ui->RKeyTextEdit_1->installEventFilter(this);
+    ui->RKeyTextEdit_2->installEventFilter(this);
+    ui->RKeyTextEdit_3->installEventFilter(this);
+    ui->RKeyTextEdit_4->installEventFilter(this);
+    ui->RKeyTextEdit_5->installEventFilter(this);
+    ui->RKeyTextEdit_6->installEventFilter(this);
+
 }
 
-void MenuWindow::addPlayer(){
-    player p ;
-    p.id = ID_INCREMENTATOR++;
-    p.leftKey = Qt::Key_Left;
-    p.rightKey = Qt::Key_Right;
-    p.pseudo = std::string("Player_") + std::to_string(ID_INCREMENTATOR);
-    players.append(&p);
-}
+
 
 bool MenuWindow::eventFilter(QObject *object, QEvent *event) {
-    //qDebug("ge");
     if (event->type() == QEvent::KeyPress){
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
-        QTextEdit *champs = qobject_cast<QTextEdit*> (object);
-        if(champs != NULL)
-            if (keyEvent->key() == Qt::Key_A)	{
-                qDebug("Enter Key Pressed...");
-                qDebug()<<keyEvent->key();
-                return true;
+        QTextEdit *textEdit = qobject_cast<QTextEdit*> (object);
+        if(textEdit != NULL){
+            QString name = textEdit->objectName();
+            QString type = name.split('_')[0];
+            if(type == PSEUDO_TEXT){
+                if(textEdit->toPlainText().size() > PSEUDO_NB_MAX_CHAR){
+                    if(keyEvent->key() != Qt::Key_Backspace
+                            && keyEvent->key() != Qt::Key_Delete)
+                        return true;
+                }
+                if((keyEvent->key()>=Qt::Key_A
+                        && keyEvent->key() <= Qt::Key_Z)
+                        || (keyEvent->key()>=Qt::Key_0
+                                && keyEvent->key() <= Qt::Key_9)
+                        || keyEvent->key() == Qt::Key_Backspace
+                        || keyEvent->key() == Qt::Key_Delete
+                        || keyEvent->key() == Qt::Key_Right
+                        || keyEvent->key() == Qt::Key_Left){
+                    return QWidget::eventFilter(object,event);
+                }
+                else{
+                    return true;
+                }
             }
+            else if (type == LKEY_TEXT || type == RKEY_TEXT){
+//                QKeySequence key("M");
+//                qDebug()<<key[0];
+//                qDebug()<< keyEvent->key();
+                if(keyEvent->key() == Qt::Key_Right){
+                    textEdit->setPlainText("->");
+                }else if(keyEvent->key() == Qt::Key_Left){
+                    textEdit->setPlainText("<-");
+                }
+                if(textEdit->toPlainText().size() > KEY_NB_MAX_CHAR){
+                    if(keyEvent->key() != Qt::Key_Backspace
+                            && keyEvent->key() != Qt::Key_Delete)
+                        return true;
+                }
+            }
+        }
     }
     return QWidget::eventFilter(object,event);
 }
@@ -74,13 +115,6 @@ bool MenuWindow::eventFilter(QObject *object, QEvent *event) {
 
 MenuWindow::~MenuWindow(){
     delete ui;
-}
-
-void MenuWindow::checkTextEditWidth(){
-    QString text = ui->pseudoTextEdit_2->toPlainText();
-    if(text.length() > 15){
-        ui->pseudoTextEdit_2->setText(text.left(15));
-    }
 }
 
 
@@ -114,4 +148,41 @@ void MenuWindow::on_checkBoxPlayer4_clicked(bool checked){
 
 void MenuWindow::on_checkBoxPlayer5_clicked(bool checked){
     ui->WidgetPlayer_5->setVisible(checked);
+}
+
+uint getKey(QString s){
+    if(s == "->")
+        return Qt::Key_Right;
+    if(s == "<-")
+        return Qt::Key_Left;
+    QKeySequence key(s);
+    return key[0];
+}
+
+
+void MenuWindow::on_StartButton_clicked(){
+    uint RKey, LKey;
+    QString pseudo, Rchar, Lchar;
+    QVector<Player*> players;
+
+    pseudo = ui->pseudoTextEdit_1->toPlainText();
+    Rchar = ui->RKeyTextEdit_1->toPlainText();
+    Lchar = ui->LKeyTextEdit_1->toPlainText();
+    if(pseudo.size()+Rchar.size()+Lchar.size() < 3) return ;
+    RKey = getKey(Rchar);
+    LKey = getKey(Lchar);
+
+    players.append(new Player(pseudo, RKey, LKey));
+
+    if(!ui->checkBoxPlayer1->isChecked()){
+
+        return;
+    }
+    pseudo = ui->pseudoTextEdit_2->toPlainText();
+    Rchar = ui->RKeyTextEdit_2->toPlainText();
+    Lchar = ui->LKeyTextEdit_2->toPlainText();
+    if(pseudo.size()+Rchar.size()+Lchar.size() < 3) return ;
+    RKey = getKey(Rchar);
+    LKey = getKey(Lchar);
+    players.append(new Player(pseudo, RKey, LKey));
 }

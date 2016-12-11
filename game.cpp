@@ -21,7 +21,7 @@ Game::Game(const int w, const int h) :
         terrain(this, w, h){
     nbLivingPlayers = 0;
 
-    Player *p1= new Player(Qt::Key_Right, Qt::Key_Left);
+    Player *p1= new Player("michel", Qt::Key_Right, Qt::Key_Left);
 
 
     addPlayer(p1);
