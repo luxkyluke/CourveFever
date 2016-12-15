@@ -1,7 +1,6 @@
 #include <iostream>
 #include <QTimer>
 #include <iostream>
-#include <iostream>
 #include <QDebug>
 
 #include "game.h"
@@ -119,9 +118,10 @@ void Game::checkCollision(){
             continue;
         QColor c;
         if(terrain.isInCollision(p, &c)){
-            cout << "couleur " << c.red() << " "<< c.green() << " "<< c.blue() <<endl;
+            //cout << "couleur " << c.red() << " "<< c.green() << " "<< c.blue() <<endl;
+            p->kill();
+            cout<< " "<<p->getPseudo().toStdString()<<" est mort !"<<endl;
             if(terrain.isBordersColor(c) || p->isMyColor(c)){
-                p->kill();
                 nbLivingPlayers--;
                 continue;
             }

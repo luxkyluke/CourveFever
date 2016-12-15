@@ -60,8 +60,6 @@ QPointF Player::getRandPos(){
     QPointF randPos;
     float randX = rand() %RANDOM_POS_RANGE;
     float randY = rand() %RANDOM_POS_RANGE;
-    cout <<"\n"<< rand() << endl<<endl;
-    cout<<randX <<" "<<randY<<endl;
     randPos = QPointF(randX, 0);
     return randPos;
 }

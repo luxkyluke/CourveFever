@@ -32,7 +32,8 @@ SOURCES += main.cpp\
     collision.cpp \
     canvas.cpp \
     biggerbonus.cpp \
-    gamewindow.cpp
+    gamewindow.cpp \
+    playerinfowidget.cpp
 
 FORMS    += \
     menuwindow.ui
@@ -54,4 +55,5 @@ HEADERS += \
     collision.h \
     canvas.h \
     biggerbonus.h \
-    gamewindow.h
+    gamewindow.h \
+    playerinfowidget.h
