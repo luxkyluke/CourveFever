@@ -5,6 +5,7 @@
 #include <QKeyEvent>
 #include <QVector>
 #include <QString>
+#include<QColor>
 
 #include "circle.h"
 #include "vector2D.h"
@@ -41,6 +42,8 @@ public:
     bool getRun() const;
     bool isACrtlKey(int key);
     void kill();
+    bool isNextTo(Player* p);
+    bool isNextTo(QPointF p);
     bool checkKey(QKeyEvent* event);
     QVector<QPointF> getCollisionPoints() const ;
     void increaseScore();
@@ -51,6 +54,11 @@ public:
     bool getIsLiving() const;
     QString getPseudo() const;
     static QPointF getRandPos();
+    static QColor getRandColor();
+    void setColor(QColor c);
+    bool hasSameColor(QColor c);
+    bool operator==(Player& p);
+    bool operator!=(Player& p);
 };
 
 #endif // PLAYER_H

@@ -1,15 +1,22 @@
 #include "circle.h"
 #include <QColor>
 
+const static int COLOR_RANGE =30;
 
-
-QColor Circle::getColor() const
-{
+QColor Circle::getColor() const{
     return color;
 }
 
-void Circle::setColor(const QColor &value)
-{
+bool Circle::hasSameColor(QColor c){
+    return (c.red() < color.red()+COLOR_RANGE
+            && c.red() > color.red()-COLOR_RANGE
+            && c.blue() < color.blue()+COLOR_RANGE
+            && c.blue() > color.blue()-COLOR_RANGE
+            && c.green() < color.green()+COLOR_RANGE
+            && c.green() > color.green()-COLOR_RANGE);
+}
+
+void Circle::setColor(const QColor &value){
     color = value;
 }
 

@@ -10,6 +10,7 @@ public:
     int getRightKey() ;
     int getLeftKey() ;
     bool isCtrlKey(int key) ;
+    bool operator==(CtrlKey& crtl);
 };
 
 #endif // CTRLKEY_H

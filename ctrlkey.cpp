@@ -15,7 +15,12 @@ int CtrlKey::getLeftKey(){
 }
 
 bool CtrlKey::isCtrlKey(int key){
-   return(key == leftKey || key == rightKey);
+    return(key == leftKey || key == rightKey);
+}
+
+bool CtrlKey::operator==(CtrlKey& ctrl){
+    return leftKey == ctrl.leftKey
+            && rightKey==ctrl.rightKey;
 }
 
 int CtrlKey::getRightKey(){

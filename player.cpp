@@ -18,6 +18,7 @@ const static Vector2D DEFAULT_SPEED = Vector2D(0., 0.);
 const static int RANDOM_POS_RANGE = 200;
 const static float DEFAULT_ANGLE = 3;
 const static int COLLISION_DISTANCE = 6;
+const static int MIN_DISTANCE_BTW_PLAYERS = 15;
 
 Player::Player(): direction(DEFAULT_DIR),
             Circle(DEFAULT_RADIUS, DEFAULT_POSITION),
@@ -25,61 +26,63 @@ Player::Player(): direction(DEFAULT_DIR),
     score =0;
     turn = 0;
     angle = 0.;
-    srand(time(NULL));
-    int r = rand() %185 + 70;
-    int g = rand() %185 + 70;
-    int b = rand() %185 + 70;
-    setColor(QColor(r, g, b, 255));
+    setColor(QColor(255, 255, 0, 255));
     isLiving = true;
 }
 
-int gettimeofday(struct timeval* p, void* tz) {
-    ULARGE_INTEGER ul; // As specified on MSDN.
-    FILETIME ft;
 
-    // Returns a 64-bit value representing the number of
-    // 100-nanosecond intervals since January 1, 1601 (UTC).
-    GetSystemTimeAsFileTime(&ft);
-
-    // Fill ULARGE_INTEGER low and high parts.
-    ul.LowPart = ft.dwLowDateTime;
-    ul.HighPart = ft.dwHighDateTime;
-    // Convert to microseconds.
-    ul.QuadPart /= 10ULL;
-    // Remove Windows to UNIX Epoch delta.
-    ul.QuadPart -= 11644473600000000ULL;
-    // Modulo to retrieve the microseconds.
-    p->tv_usec = (long) (ul.QuadPart % 1000000LL);
-    // Divide to retrieve the seconds.
-    p->tv_sec = (long) (ul.QuadPart / 1000000LL);
-
-    return 0;
-}
-
-QPointF Player::getRandPos(){
-    QPointF randPos;
-    float randX = rand() %RANDOM_POS_RANGE;
-    float randY = rand() %RANDOM_POS_RANGE;
-    randPos = QPointF(randX, 0);
-    return randPos;
-}
 
 Player::Player(QString _pseudo, int rKey, int lKey): direction(DEFAULT_DIR),
-            Circle(DEFAULT_RADIUS, Player::getRandPos()),
+            Circle(DEFAULT_RADIUS, DEFAULT_POSITION),
             ctrlKeys(CtrlKey(rKey, lKey)),
             speed(DEFAULT_SPEED){
     score =0;
     angle = 0.;
     turn = 0;
     //srand(time(NULL));
-    int r = rand() %185 + 70;
-    int g = rand() %185 + 70;
-    int b = rand() %185 + 70;
-
-    setColor(QColor(r, g, b, 255));
+    setColor(Player::getRandColor());
     isLiving = true;
     pseudo = _pseudo;
 }
+
+QColor Player::getRandColor(){
+    int r = rand() %185 + 70;
+    int g = rand() %185 + 70;
+    int b = rand() %185 + 70;
+    return(QColor(r, g, b, 255));
+}
+
+void Player::setColor(QColor c){
+    Circle::setColor(c);
+}
+
+bool Player::hasSameColor(QColor c){
+    return Circle::hasSameColor(c);
+}
+
+QPointF Player::getRandPos(){
+    QPointF randPos;
+    float randX = rand() %RANDOM_POS_RANGE*2 - RANDOM_POS_RANGE;
+    float randY = rand() %RANDOM_POS_RANGE*1.5 - RANDOM_POS_RANGE;
+    randPos = QPointF(randX, randY);
+    return randPos;
+}
+
+bool Player::operator==(Player &p){
+    return pseudo == p.pseudo
+        && direction == p.direction
+        && speed == p.speed
+        && score == p.score
+        && turn == p.turn
+        && isLiving == p.isLiving
+        && angle == p.angle
+        && ctrlKeys == p.ctrlKeys;
+}
+
+bool Player::operator!=(Player &p){
+    return !this->operator==(p);
+}
+
 
 void Player::moov(){
     if(isLiving){
@@ -99,6 +102,21 @@ bool Player::isMyColor(QColor c){
 
 void Player::kill(){
     isLiving = false;
+}
+
+bool Player::isNextTo(Player *p){
+    if(p->position == this->position)
+        return true;
+    return (isNextTo(p->position));
+}
+
+bool Player::isNextTo(QPointF pos){
+    if(pos == this->position)
+        return true;
+    return ((pos.x() < this->position.x()+MIN_DISTANCE_BTW_PLAYERS
+            && pos.x() > this->position.x()-MIN_DISTANCE_BTW_PLAYERS)
+             || (pos.y() < this->position.y()+MIN_DISTANCE_BTW_PLAYERS*4
+                 && pos.y() > this->position.y()-MIN_DISTANCE_BTW_PLAYERS));
 }
 
 bool Player::checkKey(QKeyEvent* event){
@@ -143,6 +161,8 @@ QVector<QPointF> Player::getCollisionPoints() const{
 }
 
 void Player::increaseScore(){
+    if(!isLiving)
+        return;
     score++;
 }
 

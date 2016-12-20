@@ -3,6 +3,8 @@
 #include "game.h"
 #include <iostream>
 #include <QHBoxLayout>
+#include <QVectorIterator>
+#include <QtCore>
 
 
 //Canvas *MainWindow::getRenderer() const
@@ -16,20 +18,32 @@
 //}
 
 const static int SCORE_LABEL_WIDTH = 300;
+const static int PLAYER_WIDGET_HEIGHT = 50;
 
 GameWindow::GameWindow(const int w, const int h,
-            QVector<Player *> *_scores, QWidget *parent):
-    QMainWindow(parent){
+                QVector<Player *> *p, QWidget *parent):
+                QMainWindow(parent){
     this->resize(w+SCORE_LABEL_WIDTH, h);
 
     terrainLabel = new QLabel("terrain");
 
     scoreWidget = new QWidget();
-    titre = new QLabel("scores",scoreWidget);
+    titre = new QLabel("scores", scoreWidget);
 
-    scores = _scores;
+    players = p;
 
+    int height = PLAYER_WIDGET_HEIGHT;
 
+    //---------------------------------
+    //    /!\     ITERATOR     /!\
+    //---------------------------------
+
+    QVector<Player*>::iterator iterator;
+    for(iterator = p->begin(); iterator != p->end(); iterator++) {
+        PlayerInfoWidget *bloc = new PlayerInfoWidget(*iterator, SCORE_LABEL_WIDTH, height, scoreWidget);
+        playersInfos.append(bloc);
+        height += PLAYER_WIDGET_HEIGHT;
+    }
 
     //titre->setStyleSheet("QLabel { background-color : red; color : blue; }");
     QWidget* mainWidget = new QWidget();
@@ -46,6 +60,15 @@ GameWindow::GameWindow(const int w, const int h,
 void GameWindow::setCanvas(Terrain* t){
     canva = t;
     terrainLabel->resize(t->getWidth(), t->getHeight());
+}
+
+void GameWindow::updateScores(){
+    QVector<PlayerInfoWidget*>::iterator it;
+    it = playersInfos.begin();
+    foreach(Player *p, *players){
+        (*it)->setScore(p->getScore());
+        it++;
+    }
 }
 
 //void GameWindow::addPlayerToScoreTab(const Player *p){
@@ -69,6 +92,9 @@ void GameWindow::paintEvent(QPaintEvent *e){
     }
     canva->paintEvent(e);
     terrainLabel->setPixmap(canva->getPic());
+//    foreach(PlayerInfoWidget* p, playersInfos){
+//        p->paintEvent(e);
+//    }
 }
 
 GameWindow::~GameWindow(){

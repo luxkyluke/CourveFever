@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QLabel>
 #include <QVector>
+#include "playerinfowidget.h"
 #include "player.h"
 
 
@@ -15,7 +16,8 @@ class GameWindow : public QMainWindow{
     Q_OBJECT
     Terrain* canva;
     QLabel *terrainLabel, *titre;
-    QVector<Player*>* scores;
+    QVector<PlayerInfoWidget*> playersInfos;
+    QVector<Player*> *players;
     QWidget* scoreWidget;
 
 public:
@@ -24,9 +26,9 @@ public:
             QVector<Player*>* _scores, QWidget *parent = 0);
     void keyPressEvent();
     void keyReleaseEvent();
-    //void repaintRenderer();
     void paintEvent(QPaintEvent *e);
     void setCanvas(Terrain* t);
+    void updateScores();
     //void addPlayerToScoreTab(const Player* p);
     virtual ~GameWindow();
 

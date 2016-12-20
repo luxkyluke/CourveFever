@@ -15,6 +15,7 @@ public:
     QPointF getPosition() const;
     void drawItem(QPainter *painter) const;
     QColor getColor() const;
+    bool hasSameColor(QColor c);
 
 protected:
     void setColor(const QColor &value);
