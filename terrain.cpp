@@ -72,7 +72,7 @@ QPoint Terrain::getCoordInImgDim(QPointF &pt){
     return QPoint(getXImgCoord(pt.x()), getYImgCoord(pt.y()));
 }
 
-QPointF Terrain::getCoordInLandmarkDim(QPoint &pt, const int w, const int h){
+QPointF Terrain::getCoordInLandmarkDim(QPoint &pt, const int &w, const int &h){
     return QPointF(getXLandmarkCoord(pt.x(), w), getYLandmarkCoord(pt.y(), h));
 }
 

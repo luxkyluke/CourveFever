@@ -78,6 +78,10 @@ void GameWindow::updateScores(){
 void GameWindow::keyPressEvent() {
 }
 
+void GameWindow::closeEvent (QCloseEvent *event){
+
+}
+
 void GameWindow::keyReleaseEvent(){
 }
 

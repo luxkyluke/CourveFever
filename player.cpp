@@ -52,20 +52,20 @@ QColor Player::getRandColor(){
     return(QColor(r, g, b, 255));
 }
 
-void Player::setColor(QColor c){
-    Circle::setColor(c);
-}
-
-bool Player::hasSameColor(QColor c){
-    return Circle::hasSameColor(c);
-}
-
 QPointF Player::getRandPos(){
     QPointF randPos;
     float randX = rand() %RANDOM_POS_RANGE*2 - RANDOM_POS_RANGE;
     float randY = rand() %RANDOM_POS_RANGE*1.5 - RANDOM_POS_RANGE;
     randPos = QPointF(randX, randY);
     return randPos;
+}
+
+void Player::setColor(QColor c){
+    Circle::setColor(c);
+}
+
+bool Player::hasSameColor(QColor c){
+    return Circle::hasSameColor(c);
 }
 
 bool Player::operator==(Player &p){
@@ -161,8 +161,8 @@ QVector<QPointF> Player::getCollisionPoints() const{
 }
 
 void Player::increaseScore(){
-    if(!isLiving)
-        return;
+//    if(!isLiving)
+//        return;
     score++;
 }
 

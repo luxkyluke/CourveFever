@@ -29,6 +29,7 @@ public:
     void paintEvent(QPaintEvent *e);
     void setCanvas(Terrain* t);
     void updateScores();
+    void closeEvent (QCloseEvent *event);
     //void addPlayerToScoreTab(const Player* p);
     virtual ~GameWindow();
 

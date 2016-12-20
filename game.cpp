@@ -42,10 +42,6 @@ Game::Game(QVector<Player *> &_players) :
 
     initPlayers();
 
-    foreach(Player* p, players){
-        qDebug()<<p->getPseudo() << " " << p->getPosition();
-    }
-
     window = new GameWindow(WIDTH, HEIGHT, &players);
     window->installEventFilter(this);
 
@@ -56,8 +52,8 @@ Game::Game(QVector<Player *> &_players) :
     QObject::connect(timer, SIGNAL(timeout()), this, SLOT(refresh()));
     timer->start(FRAME_DURATION);
 
-
-    addBonus(new BiggerBonus(WIDTH, HEIGHT));
+    Bonus *b = new BiggerBonus(WIDTH, HEIGHT);
+    addBonus(b);
 
     window->show();
 }
@@ -67,7 +63,6 @@ bool Game::isNextToSth(Player *player){
         if(p == player)
             continue;
         if(p->isNextTo(player)){
-            qDebug()<< "pos : "<<player->getPosition() << " Next to " << p->getPosition();
             return true;
         }
     }
@@ -92,27 +87,8 @@ void Game::initPlayers(){
             c= Player::getRandColor();
         } while(colorAlreadyExist(c));
         p->setColor(c);
-        qDebug()<<"position "<<p->getPosition() << " & color: "<<c.name();
     }
 }
-
-//void Game::checkInitPlayer(Player* p){
-
-//    foreach(Player* player, players){
-//        if(p == player)
-//            continue;
-
-//        while(p->isNextTo(player)){
-//           pos = Player::getRandPos();
-//           p->setPosition(pos);
-//        }
-//        positions.append(pos);
-//        while(p->hasSameColor(player)){
-//           p->setColor(Player::getRandColor());
-//        }
-//    }
-//}
-
 
 
 void Game::addPlayer(Player *p){
@@ -156,6 +132,9 @@ void Game::draw(QPainter *painter)const{
     foreach (Player* p, players) {
         p->drawItem(painter);
     }
+    foreach(Bonus* b, bonus){
+        b->drawItem(painter);
+    }
 }
 
 int Game::getWidth() const{
@@ -168,6 +147,7 @@ int Game::getHeight() const{
 
 void Game::addBonus(Bonus *b){
     bonus.append(b);
+    cout<<"bonus ajouté : "<<b->getColor().name().toStdString()<<endl;
 }
 
 void Game::killPlayer(Player* dead){
@@ -181,6 +161,7 @@ void Game::killPlayer(Player* dead){
 
 void Game::checkCollision(){
     foreach(Player* p, players){
+
         if(!p->getIsLiving())
             continue;
         QColor c;
@@ -192,11 +173,12 @@ void Game::checkCollision(){
                 continue;
             }
             else if(Bonus::isBonusColor(c)){
-
+                cout<<"BONUS"<<endl;
             }
             else{
                 try{
                     //checker ça marche pas
+
                     Player killer = getPlayer(c);
                     killer.increaseScore();
                     killPlayer(p);
@@ -213,13 +195,13 @@ void Game::refresh(){
     if(nbLivingPlayers>0){
         updateScene();
         checkCollision();
-        window->updateScores();
     }
     else{
-        cout << "C'EST LA FIN"<<endl;
+        cout << "FIN DU GAME"<<endl;
         timer->stop();
 //        exit(0);
     }
+    window->updateScores();
 }
 
 bool Game::eventFilter(QObject *object, QEvent *event){

@@ -10,13 +10,20 @@ Bonus::Bonus(){
 
 }
 
-Bonus::Bonus(int w, int h, QColor color){
-    srand(time(NULL));
+Bonus::Bonus(int w, int h, bonusType type) : Circle(radius, Bonus::getRandPos(w, h), bonusColorRelation[type]){
+//    srand(time(NULL));
+}
+
+QColor Bonus::getColor(){
+    return Circle::getColor();
+}
+
+QPointF Bonus::getRandPos(int w, int h){
     int x = rand() %w;
     int y = rand() %h;
-    QPointF pos(50.1, 150.);
-    //QPointF pos = Terrain::getCoordInLandmarkDim(QPoint(x, y));
-    Circle(radius, pos, color);
+    QPoint p = QPoint(x, y);
+    QPointF pos = Terrain::getCoordInLandmarkDim(p, w, h);
+    return pos;
 }
 
 bool Bonus::isBonusColor(QColor c){

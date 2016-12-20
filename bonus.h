@@ -27,11 +27,12 @@ protected:
 
 public:
     Bonus();
-    Bonus(int w, int h, QColor color);
+    Bonus(int w, int h, bonusType type);
+    QColor getColor();
     virtual void apply()const =0;
     static bool isBonusColor(QColor c);
     static bonusType getType(QColor c);
-
+    static QPointF getRandPos(int w, int h);
 };
 
 #endif // BONUS_H

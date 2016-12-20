@@ -48,7 +48,7 @@ public:
     static float getYLandmarkCoord(const int y, const int h);
     static float getXLandmarkCoord(const int x, const int w);
 
-    static QPointF getCoordInLandmarkDim(QPoint &pt, const int w, const int h);
+    static QPointF getCoordInLandmarkDim(QPoint &pt, const int &w, const int &h);
     QPoint getCoordInImgDim(QPointF& pt);
     void changeCoordInImgDim(const float x, const float y,
                           int *_x, int*_y);

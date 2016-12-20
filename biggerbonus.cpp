@@ -1,8 +1,7 @@
 #include "biggerbonus.h"
 
-static const QColor COLOR(255, 0, 0, 255);
 
-BiggerBonus::BiggerBonus(int w, int h) : Bonus(w, h, COLOR){
+BiggerBonus::BiggerBonus(int w, int h) : Bonus(w, h, BAD){
 
 //    timer = new QTimer(this);
 //    QObject::connect(timer, SIGNAL(timeout()), this, SLOT(refresh()));
