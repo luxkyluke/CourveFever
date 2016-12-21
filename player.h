@@ -59,6 +59,7 @@ public:
     bool hasSameColor(QColor c);
     bool operator==(Player& p);
     bool operator!=(Player& p);
+    void makeBigger(float r);
 };
 
 #endif // PLAYER_H

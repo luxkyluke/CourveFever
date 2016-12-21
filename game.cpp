@@ -1,6 +1,5 @@
 #include <iostream>
 #include <QTimer>
-#include <iostream>
 #include <QDebug>
 #include <ctime>
 
@@ -118,6 +117,13 @@ void Game::updateScene(){
     foreach(Player* p, players){
         p->moov();
     }
+    for(int i=0; i<bonus.length(); i++){
+        Bonus *b= bonus.at(i);
+        if(b->isErased() && !b->isInAction())
+            bonus.remove(i);
+        if(b->isInAction())
+            b->checkTimeout();
+    }
 }
 
 Player &Game::getPlayer(QColor c){
@@ -129,11 +135,13 @@ Player &Game::getPlayer(QColor c){
 }
 
 void Game::draw(QPainter *painter)const{
+    foreach(Bonus* b, bonus){
+        if(b->isErased())
+            continue;
+        b->drawItem(painter);
+    }
     foreach (Player* p, players) {
         p->drawItem(painter);
-    }
-    foreach(Bonus* b, bonus){
-        b->drawItem(painter);
     }
 }
 
@@ -159,6 +167,14 @@ void Game::killPlayer(Player* dead){
     nbLivingPlayers--;
 }
 
+Bonus* Game::getBonus(QColor c){
+    foreach(Bonus *b, bonus){
+        if(b->getColor() == c)
+            return b;
+    }
+    throw std::invalid_argument("Is not a bonus color");
+}
+
 void Game::checkCollision(){
     foreach(Player* p, players){
 
@@ -167,23 +183,31 @@ void Game::checkCollision(){
         QColor c;
         if(terrain.isInCollision(p, &c)){
             //cout << "couleur " << c.red() << " "<< c.green() << " "<< c.blue() <<endl;
-
-            if(terrain.isBordersColor(c) || p->isMyColor(c)){
+            if(p->isMyColor(c))
+                return;
+            if(terrain.isBordersColor(c) /*|| p->isMyColor(c)*/){
                 killPlayer(p);
                 continue;
             }
             else if(Bonus::isBonusColor(c)){
-                cout<<"BONUS"<<endl;
+                try{
+                   Bonus *b = getBonus(c);
+                   b->apply(p);
+                   terrain.paint();
+                   b->erase();
+                   //verifier si on l'applique au player ou a tous
+                }catch(exception& e){
+                    cerr << e.what() << endl;
+                    exit(EXIT_FAILURE);
+                }
             }
             else{
                 try{
-                    //checker ça marche pas
-
                     Player killer = getPlayer(c);
                     killer.increaseScore();
                     killPlayer(p);
                 }catch(exception& e){
-                    cout << e.what() << endl;
+                    cerr << e.what() << endl;
                     exit(EXIT_FAILURE);
                 }
             }
@@ -197,15 +221,22 @@ void Game::refresh(){
         checkCollision();
     }
     else{
-        cout << "FIN DU GAME"<<endl;
-        timer->stop();
+        cout<<"Tous le monde est mort"<<endl;
+        end();
 //        exit(0);
     }
     window->updateScores();
 }
 
-bool Game::eventFilter(QObject *object, QEvent *event){
+void Game::end(){
+    cout << "FIN DU GAME"<<endl;
+    timer->stop();
+}
 
+bool Game::eventFilter(QObject *object, QEvent *event){
+     if(event->type() == QEvent::Close){
+        end();
+     }
     if(event->type() == QEvent::KeyPress){
         QKeyEvent *kEvent = static_cast<QKeyEvent *>(event);
         keyEvent(kEvent);

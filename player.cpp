@@ -10,14 +10,12 @@
 using namespace std;
 
 const static float DEFAULT_ACCELERATION = 1.5;
-//a changer pour le multijoueur ! Aléatoir autour du centre
 const static QPointF DEFAULT_POSITION = QPointF(0., 0.);
 const static float DEFAULT_RADIUS = 5.;
 const static Vector2D DEFAULT_DIR = Vector2D(0., 1.);
 const static Vector2D DEFAULT_SPEED = Vector2D(0., 0.);
 const static int RANDOM_POS_RANGE = 200;
 const static float DEFAULT_ANGLE = 3;
-const static int COLLISION_DISTANCE = 6;
 const static int MIN_DISTANCE_BTW_PLAYERS = 15;
 
 Player::Player(): direction(DEFAULT_DIR),
@@ -81,6 +79,10 @@ bool Player::operator==(Player &p){
 
 bool Player::operator!=(Player &p){
     return !this->operator==(p);
+}
+
+void Player::makeBigger(float r){
+    Circle::addRadius(r);
 }
 
 
@@ -149,20 +151,17 @@ QVector<QPointF> Player::getCollisionPoints() const{
     const Vector2D pos = this->getPosition();
     const float angle = this->getAngle();
     QVector<QPointF> pts;
-
-    pts.append(pos + getPointbyAngle(angle)*COLLISION_DISTANCE);
-    pts.append(pos + getPointbyAngle(angle+45)*COLLISION_DISTANCE);
-    pts.append(pos + getPointbyAngle(angle+90)*COLLISION_DISTANCE);
-    pts.append(pos + getPointbyAngle(angle-45)*COLLISION_DISTANCE);
-    pts.append(pos + getPointbyAngle(angle-90)*COLLISION_DISTANCE);
-
-
+    pts.append(pos + getPointbyAngle(angle)*(radius+1));
+    pts.append(pos + getPointbyAngle(angle+45)*(radius+1));
+    pts.append(pos + getPointbyAngle(angle+90)*(radius+1));
+    pts.append(pos + getPointbyAngle(angle-45)*(radius+1));
+    pts.append(pos + getPointbyAngle(angle-90)*(radius+1));
     return pts;
 }
 
 void Player::increaseScore(){
-//    if(!isLiving)
-//        return;
+    if(!isLiving)
+        return;
     score++;
 }
 

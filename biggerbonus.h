@@ -6,7 +6,8 @@
 class BiggerBonus: public Bonus{
 public:
     BiggerBonus(int w, int h);
-    void apply()const;
+    void apply(Player *p);
+    void cancel();
 };
 
 #endif // BIGGERBONUS_H

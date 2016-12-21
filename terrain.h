@@ -34,7 +34,7 @@ public:
     QPixmap getPic() const;
     bool isInCollision(Player* p, QColor *c);
     bool isBordersColor(QColor c);
-
+    void paint();
 
     //change coordinates x, y which have origin (0,0)
     //in the middle of the scene by coord (0,0) based

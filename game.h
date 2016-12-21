@@ -20,12 +20,15 @@ private:
 
     void updateScene();
     Player& getPlayer(QColor c);
+    Bonus* getBonus(QColor c);
     void checkCollision();
     void killPlayer(Player* p);
     void initPlayers();
     void changePositionPlayer(Player *p);
     bool colorAlreadyExist(QColor c);
     bool isNextToSth(Player *p);
+    void end();
+
 
 public:
     Game();

@@ -7,6 +7,10 @@ QColor Circle::getColor() const{
     return color;
 }
 
+void Circle::addRadius(float r){
+    radius += r;
+}
+
 bool Circle::hasSameColor(QColor c){
     return (c.red() < color.red()+COLOR_RANGE
             && c.red() > color.red()-COLOR_RANGE
@@ -16,20 +20,24 @@ bool Circle::hasSameColor(QColor c){
             && c.green() > color.green()-COLOR_RANGE);
 }
 
+void Circle::resetRadius(){
+    radius = initialRadius;
+}
+
 void Circle::setColor(const QColor &value){
     color = value;
 }
 
 Circle::Circle(){
     radius = 0;
-    radius_squared = 0;
+    initialRadius = 0;
     color = DEFAULT_COLOR;
 }
 
 
 Circle::Circle(float rad, QPointF center, QColor c){
     radius = rad;
-    radius_squared = rad*rad;
+    initialRadius = rad;
     position = center;
     color = c;
 }

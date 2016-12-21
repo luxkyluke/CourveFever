@@ -5,8 +5,9 @@
 static const QColor DEFAULT_COLOR(255, 255, 255, 255);
 
 class Circle : public GameItem{
+protected:
     float radius;
-    float radius_squared;
+    float initialRadius;
     QColor color;
 
 public:
@@ -15,7 +16,9 @@ public:
     QPointF getPosition() const;
     void drawItem(QPainter *painter) const;
     QColor getColor() const;
+    void addRadius(float r);
     bool hasSameColor(QColor c);
+    void resetRadius();
 
 protected:
     void setColor(const QColor &value);

@@ -56,4 +56,5 @@ HEADERS += \
     canvas.h \
     biggerbonus.h \
     gamewindow.h \
-    playerinfowidget.h
+    playerinfowidget.h \
+    timer.h

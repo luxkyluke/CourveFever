@@ -6,6 +6,23 @@
 static const QColor BLACK_COLOR(0, 0, 0, 255);
 static const QColor WHITE_COLOR(255, 255, 255, 255);
 
+
+Terrain::Terrain (QWidget *parent): QWidget(parent){
+    width = 0;
+    height = 0;
+    isNoBorder = true;
+}
+
+Terrain::Terrain(const Game* g, int w,
+                 int h, QWidget *parent):
+            QWidget(parent), game(g){
+    width = w;
+    height = h;
+    pic = QPixmap(width, height);
+    isNoBorder = true;
+}
+
+
 int Terrain::getWidth() const{
     return width;
 }
@@ -39,6 +56,10 @@ void Terrain::drawBorders(QPainter& painter){
 
 
 void Terrain::paintEvent(QPaintEvent *pe){
+    paint();
+}
+
+void Terrain::paint(){
     QPainter painter;
     painter.begin(&pic);
 
@@ -127,20 +148,4 @@ bool Terrain::isBordersColor(QColor c){
 //        return true;
 //    return false;
 //}
-
-Terrain::Terrain (QWidget *parent): QWidget(parent){
-    width = 0;
-    height = 0;
-    isNoBorder = true;
-}
-
-Terrain::Terrain(const Game* g, int w,
-                 int h, QWidget *parent):
-            QWidget(parent), game(g){
-    width = w;
-    height = h;
-    pic = QPixmap(width, height);
-    isNoBorder = true;
-}
-
 
