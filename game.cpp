@@ -23,39 +23,29 @@ Game::Game(){
 
 }
 
-Game::Game(QVector<Player *> &_players) :
-        terrain(this, WIDTH, HEIGHT){
-    nbLivingPlayers = 0;
+Game::Game(QVector<Player *> &_players){
 
-    //Player *p1= new Player("michel", Qt::Key_Right, Qt::Key_Left);
-
-
-    //addPlayer(p1);
     players = _players;
 
-
     nbLivingPlayers = players.size();
-    cout<<"nb players = "<<nbLivingPlayers<<endl;
-
     srand(time(NULL));
-
     initPlayers();
 
-    window = new GameWindow(WIDTH, HEIGHT, &players);
+    terrain = new Terrain(this, WIDTH, HEIGHT);
+
+    window = new GameWindow(WIDTH, HEIGHT, &players, this);
     window->installEventFilter(this);
-
-    //terrain.setParent(window);
-    window->setCanvas(&terrain);
-
-    timer = new QTimer(this);
-    QObject::connect(timer, SIGNAL(timeout()), this, SLOT(refresh()));
-    timer->start(FRAME_DURATION);
+    window->setCanvas(terrain);
 
     Bonus *b = new BiggerBonus(WIDTH, HEIGHT);
     addBonus(b);
 
+    timer = new QTimer(this);
+    QObject::connect(timer, SIGNAL(timeout()), this, SLOT(refresh()));
+    timer->start(FRAME_DURATION);
     window->show();
 }
+
 
 bool Game::isNextToSth(Player *player){
     foreach(Player* p, players){
@@ -95,11 +85,6 @@ void Game::addPlayer(Player *p){
     nbLivingPlayers ++;
 }
 
-//void Game::play(){
-
-//}
-
-
 //determiner quel touche appartienne a quelle joueur
 bool Game::keyEvent(QKeyEvent* event){
 
@@ -110,7 +95,7 @@ bool Game::keyEvent(QKeyEvent* event){
 }
 
 Terrain* Game::getTerrain(){
-    return &terrain;
+    return terrain;
 }
 
 void Game::updateScene(){
@@ -146,11 +131,11 @@ void Game::draw(QPainter *painter)const{
 }
 
 int Game::getWidth() const{
-    return terrain.getWidth();
+    return terrain->getWidth();
 }
 
 int Game::getHeight() const{
-    return terrain.getHeight();
+    return terrain->getHeight();
 }
 
 void Game::addBonus(Bonus *b){
@@ -181,11 +166,11 @@ void Game::checkCollision(){
         if(!p->getIsLiving())
             continue;
         QColor c;
-        if(terrain.isInCollision(p, &c)){
-            //cout << "couleur " << c.red() << " "<< c.green() << " "<< c.blue() <<endl;
+        if(terrain->isInCollision(p, &c)){
+            cout << "couleur " << c.red() << " "<< c.green() << " "<< c.blue() <<endl;
             if(p->isMyColor(c))
                 return;
-            if(terrain.isBordersColor(c) /*|| p->isMyColor(c)*/){
+            if(terrain->isBordersColor(c) /*|| p->isMyColor(c)*/){
                 killPlayer(p);
                 continue;
             }
@@ -193,7 +178,7 @@ void Game::checkCollision(){
                 try{
                    Bonus *b = getBonus(c);
                    b->apply(p);
-                   terrain.paint();
+                   terrain->paint();
                    b->erase();
                    //verifier si on l'applique au player ou a tous
                 }catch(exception& e){
@@ -222,6 +207,7 @@ void Game::refresh(){
     }
     else{
         cout<<"Tous le monde est mort"<<endl;
+        window->theEnd();
         end();
 //        exit(0);
     }
@@ -232,6 +218,8 @@ void Game::end(){
     cout << "FIN DU GAME"<<endl;
     timer->stop();
 }
+
+
 
 bool Game::eventFilter(QObject *object, QEvent *event){
      if(event->type() == QEvent::Close){
@@ -254,6 +242,31 @@ void Game::play(){
     window->show();
 }
 
-bool Game::isSafePosition(QPointF pos){
-    return true;
+Game::~Game(){
+    foreach(Player *p, players){
+        delete(p);
+        p=NULL;
+    }
+    foreach(Bonus *b, bonus){
+        delete(b);
+        b=NULL;
+
+    }
+    delete(timer);
+    timer = NULL;
+
+    delete(terrain);
+    terrain = NULL;
+    delete(window);
+    window =NULL;
+}
+
+void Game::on_clickQuitButton(){
+    window->close();
+    delete(this);
+    exit(0);
+}
+
+void Game::on_clickRestartButton(){
+    window->close();
 }

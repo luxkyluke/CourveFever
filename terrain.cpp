@@ -89,6 +89,10 @@ void Terrain::changeCoordInImgDim(const float x, const float y,
     *_y = getYImgCoord(y);
 }
 
+void Terrain::clear(){
+    pic = QPixmap(width, height);
+}
+
 QPoint Terrain::getCoordInImgDim(QPointF &pt){
     return QPoint(getXImgCoord(pt.x()), getYImgCoord(pt.y()));
 }

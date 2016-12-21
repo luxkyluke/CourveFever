@@ -119,6 +119,9 @@ MenuWindow::~MenuWindow(){
     delete ui;
 }
 
+void MenuWindow::closeEvent(QCloseEvent *event){
+    delete game;
+}
 
 void MenuWindow::on_checkBoxPlayer1_clicked(bool checked){
     ui->WidgetPlayer_1->setVisible(checked);
@@ -182,7 +185,7 @@ void MenuWindow::on_StartButton_clicked(){
     players.append(new Player(pseudo, RKey, LKey));
     if(!ui->checkBoxPlayer1->isChecked()){
         //this->hide();
-        new Game(players);
+        game = new Game(players);
         //this->show();
         return;
     }
@@ -195,7 +198,7 @@ void MenuWindow::on_StartButton_clicked(){
     LKey = getKey(Lchar);
     players.append(new Player(pseudo, RKey, LKey));
     if(!ui->checkBoxPlayer2->isChecked()){
-        new Game(players);
+        game = new Game(players);
         return;
     }
 
@@ -207,7 +210,7 @@ void MenuWindow::on_StartButton_clicked(){
     LKey = getKey(Lchar);
     players.append(new Player(pseudo, RKey, LKey));
     if(!ui->checkBoxPlayer3->isChecked()){
-        new Game(players);
+        game = new Game(players);
         return;
     }
 
@@ -219,7 +222,7 @@ void MenuWindow::on_StartButton_clicked(){
     LKey = getKey(Lchar);
     players.append(new Player(pseudo, RKey, LKey));
     if(!ui->checkBoxPlayer4->isChecked()){
-        new Game(players);
+        game = new Game(players);
         return;
     }
 
@@ -231,7 +234,7 @@ void MenuWindow::on_StartButton_clicked(){
     LKey = getKey(Lchar);
     players.append(new Player(pseudo, RKey, LKey));
     if(!ui->checkBoxPlayer5->isChecked()){
-        new Game(players);
+        game = new Game(players);
         return;
     }
 
@@ -243,5 +246,5 @@ void MenuWindow::on_StartButton_clicked(){
     LKey = getKey(Lchar);
     players.append(new Player(pseudo, RKey, LKey));
 
-    new Game(players);
+    game = new Game(players);
 }

@@ -7,6 +7,7 @@
 #include <QtCore>
 
 
+
 //Canvas *MainWindow::getRenderer() const
 //{
 //    return canva;
@@ -19,13 +20,16 @@
 
 const static int SCORE_LABEL_WIDTH = 300;
 const static int PLAYER_WIDGET_HEIGHT = 50;
+const static int MENU_TAB_HEIGHT = 25;
 
 GameWindow::GameWindow(const int w, const int h,
-                QVector<Player *> *p, QWidget *parent):
+                QVector<Player *> *p, Game* game, QWidget *parent):
                 QMainWindow(parent){
     this->resize(w+SCORE_LABEL_WIDTH, h);
 
-    terrainLabel = new QLabel("terrain");
+    QLabel *test =new QLabel("terrain");
+
+    terrainLabel = test;
 
     scoreWidget = new QWidget();
     titre = new QLabel("scores", scoreWidget);
@@ -45,7 +49,6 @@ GameWindow::GameWindow(const int w, const int h,
         height += PLAYER_WIDGET_HEIGHT;
     }
 
-    //titre->setStyleSheet("QLabel { background-color : red; color : blue; }");
     QWidget* mainWidget = new QWidget();
     this->setCentralWidget(mainWidget);
     QHBoxLayout *mainLayout = new QHBoxLayout();
@@ -53,7 +56,29 @@ GameWindow::GameWindow(const int w, const int h,
     mainLayout->addWidget(scoreWidget);
     mainLayout->addWidget(terrainLabel);
 
+
     canva = NULL;
+
+    terrainOverlay = new QWidget(terrainLabel);
+    terrainOverlay->resize(w, h);
+    terrainOverlay->setStyleSheet("background-color : rgba(200, 200, 200, 0.3)");
+    terrainOverlay->setVisible(false);
+
+    QPushButton *restartButton = new QPushButton("Play Again", terrainOverlay);
+    restartButton->setStyleSheet("background-color: #757575; "
+                                 "color : #fff; "
+                                 "font-size: 35px; ");
+    restartButton->setGeometry(QRect(150, 350, 200, 75));
+    QObject::connect(restartButton, SIGNAL(clicked(bool)), game, SLOT(on_clickRestartButton()));
+
+
+
+    QPushButton *quitButton = new QPushButton("Quit", terrainOverlay);
+    quitButton->setStyleSheet("background-color: #757575; "
+                              "color : #fff; "
+                              "font-size: 35px; ");
+    quitButton->setGeometry(QRect(450, 350, 200, 75));
+    QObject::connect(quitButton, SIGNAL(clicked(bool)), game, SLOT(on_clickQuitButton()));
 }
 
 
@@ -81,9 +106,6 @@ void GameWindow::keyPressEvent() {
 void GameWindow::keyReleaseEvent(){
 }
 
-//void MainWindow::repaintRenderer(){
-//    //canva->update();
-//}
 
 void GameWindow::paintEvent(QPaintEvent *e){
     if(canva == NULL){
@@ -92,12 +114,25 @@ void GameWindow::paintEvent(QPaintEvent *e){
     }
     canva->paintEvent(e);
     terrainLabel->setPixmap(canva->getPic());
-//    foreach(PlayerInfoWidget* p, playersInfos){
-//        p->paintEvent(e);
-//    }
 }
 
 GameWindow::~GameWindow(){
-
+    delete (titre);
+    titre = NULL;
+    delete(terrainLabel);
+    terrainLabel =NULL;
+    foreach(PlayerInfoWidget *p, playersInfos){
+        free(p);
+        p = NULL;
+    }
+    free(scoreWidget);
+    scoreWidget = NULL;
+    free(terrainOverlay);
+    terrainOverlay = NULL;
 }
+
+void GameWindow::theEnd(){
+    terrainOverlay->setVisible(true);
+}
+
 

@@ -85,6 +85,19 @@ void Player::makeBigger(float r){
     Circle::addRadius(r);
 }
 
+void Player::reset(){
+    position = Player::getRandPos();
+    isLiving = true;
+    direction = DEFAULT_DIR;
+    score =0;
+    turn = 0;
+    angle = 0.;
+}
+
+Player::~Player(){
+
+}
+
 
 void Player::moov(){
     if(isLiving){

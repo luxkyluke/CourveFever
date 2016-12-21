@@ -14,7 +14,7 @@ private:
     QVector<Player*> players;
     QVector<Bonus*> bonus;
     QTimer* timer;
-    Terrain terrain;
+    Terrain *terrain;
     int nbLivingPlayers;
     GameWindow* window;
 
@@ -29,7 +29,6 @@ private:
     bool isNextToSth(Player *p);
     void end();
 
-
 public:
     Game();
     Game(QVector<Player*>& _players);
@@ -42,10 +41,14 @@ public:
     bool eventFilter(QObject *object, QEvent *event);
     void play();
     Terrain* getTerrain();
-    static bool isSafePosition(QPointF pos);
+    ~Game();
 
 public slots:
     void refresh();
+private slots:
+    void on_clickQuitButton();
+    void on_clickRestartButton();
+
 
 };
 

@@ -20,8 +20,6 @@ Bonus::Bonus(int w, int h, bonusType type) : Circle(radius, Bonus::getRandPos(w,
     erased = false;
 }
 
-
-
 bool Bonus::isInAction() const{
     return inAction;
 }
@@ -32,6 +30,10 @@ void Bonus::erase(){
 
 bool Bonus::isErased() const{
     return erased;
+}
+
+Bonus::~Bonus(){
+
 }
 
 void Bonus::setPlayer(Player *p){player = p;}

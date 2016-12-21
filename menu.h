@@ -15,9 +15,9 @@ class MenuWindow;
 class MenuWindow : public QMainWindow{
     Q_OBJECT
 
-    //Game* game;
-
+    Game* game;
     void initWindow();
+
 
 public:
     explicit MenuWindow( QWidget *parent=0);
@@ -28,6 +28,7 @@ public:
 
 private:
     Ui::MenuWindow *ui;
+    void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
 public slots:
 

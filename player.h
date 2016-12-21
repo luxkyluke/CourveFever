@@ -60,6 +60,8 @@ public:
     bool operator==(Player& p);
     bool operator!=(Player& p);
     void makeBigger(float r);
+    void reset();
+    virtual ~Player();
 };
 
 #endif // PLAYER_H

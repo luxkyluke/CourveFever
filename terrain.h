@@ -52,7 +52,7 @@ public:
     QPoint getCoordInImgDim(QPointF& pt);
     void changeCoordInImgDim(const float x, const float y,
                           int *_x, int*_y);
-
+    void clear();
 };
 
 

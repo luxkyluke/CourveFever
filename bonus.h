@@ -47,6 +47,7 @@ public:
     bool isInAction() const;
     void erase();
     bool isErased() const;
+    virtual ~Bonus();
 };
 
 #endif // BONUS_H
