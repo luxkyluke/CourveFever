@@ -263,7 +263,7 @@ void Game::checkCollision(){
 
 int Game::getIdwinner(){
     int idWinner = 0;
-    for(unsigned int i=1; i<players.size(); i++){
+    for(int i=1; i<players.size(); i++){
         if(players.at(i)->getScore() > players.at(idWinner)->getScore())
             idWinner = i;
     }

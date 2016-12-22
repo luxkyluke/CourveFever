@@ -1,12 +1,12 @@
 #include "playerinfowidget.h"
+#include <string>
 #include <iostream>
 #include <sstream>
-#include <string>
 
 const static int WIDTH_COLOR_BOX = 25;
 
 QString intToQString(int a){
-    ostringstream convert;
+    std::ostringstream convert;
     convert<< a;
     std::string s = convert.str();
     return QString::fromStdString(s);

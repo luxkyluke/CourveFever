@@ -8,9 +8,6 @@
 #include "ui_menuwindow.h"
 
 
-
-static int ID_INCREMENTATOR=0;
-
 static const QString PSEUDO_TEXT = "pseudoTextEdit";
 static const QString LKEY_TEXT = "LKeyTextEdit";
 static const QString RKEY_TEXT = "RKeyTextEdit";

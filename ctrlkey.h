@@ -1,7 +1,10 @@
 #ifndef CTRLKEY_H
 #define CTRLKEY_H
 
-
+/**
+ * @brief The CtrlKey class, keep informations about
+ * which key controle which player
+ */
 class CtrlKey{
     int rightKey, leftKey;
 public:

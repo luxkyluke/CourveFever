@@ -18,12 +18,13 @@ const static int RANDOM_POS_RANGE = 200;
 const static float DEFAULT_ANGLE = 3;
 const static int MIN_DISTANCE_BTW_PLAYERS = 15;
 
-Player::Player(): direction(DEFAULT_DIR),
-            Circle(DEFAULT_RADIUS, DEFAULT_POSITION),
+Player::Player(): Circle(DEFAULT_RADIUS, DEFAULT_POSITION),
             ctrlKeys(CtrlKey()){
     score =0;
     turn = 0;
     angle = 0.;
+    speed = DEFAULT_SPEED;
+    direction = DEFAULT_DIR;
     acceleration = 0.;
     setColor(QColor(255, 255, 0, 255));
     isLiving = true;
@@ -38,7 +39,6 @@ Player::Player(QString _pseudo, int rKey, int lKey): direction(DEFAULT_DIR),
     score =0;
     angle = 0.;
     turn = 0;
-    //srand(time(NULL));
     setColor(Player::getRandColor());
     isLiving = true;
     acceleration = DEFAULT_ACCELERATION;

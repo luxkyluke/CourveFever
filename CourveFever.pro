@@ -19,18 +19,12 @@ SOURCES += main.cpp\
     player.cpp \
     circle.cpp \
     bonus.cpp \
-    renderer.cpp \
-    matrix.cpp\
     terrain.cpp \
-    point.cpp \
     vector2D.cpp \
-    play.cpp \
     menu.cpp \
     game.cpp \
     ctrlkey.cpp \
     gameitem.cpp \
-    collision.cpp \
-    canvas.cpp \
     biggerbonus.cpp \
     gamewindow.cpp \
     playerinfowidget.cpp \
@@ -42,23 +36,15 @@ FORMS    += \
 
 HEADERS += \
     bonus.h \
-    circle.h \
     player.h \
     terrain.h \
-    renderer.h \
-    matrix.h \
     gameitem.h \
     vector2D.h \
-    point2D.h \
-    play.h \
     menu.h \
     game.h \
     ctrlkey.h \
-    collision.h \
-    canvas.h \
     biggerbonus.h \
     gamewindow.h \
     playerinfowidget.h \
-    timer.h \
     cleanbonus.h \
     speedbonus.h
