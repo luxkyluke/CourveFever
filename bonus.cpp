@@ -18,6 +18,7 @@ Bonus::Bonus(int w, int h, bonusType type) : Circle(radius, Bonus::getRandPos(w,
     player = NULL;
     inAction = false;
     erased = false;
+    this->type = type;
 }
 
 bool Bonus::isInAction() const{
@@ -74,5 +75,9 @@ bool Bonus::isBonusColor(QColor c){
 
 bonusType Bonus::getType(QColor c){
     return Bonus::bonusColorRelation.key(c);
+}
+
+bonusType Bonus::getType(){
+    return type;
 }
 

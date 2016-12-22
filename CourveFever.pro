@@ -33,7 +33,8 @@ SOURCES += main.cpp\
     canvas.cpp \
     biggerbonus.cpp \
     gamewindow.cpp \
-    playerinfowidget.cpp
+    playerinfowidget.cpp \
+    cleanbonus.cpp
 
 FORMS    += \
     menuwindow.ui
@@ -57,4 +58,5 @@ HEADERS += \
     biggerbonus.h \
     gamewindow.h \
     playerinfowidget.h \
-    timer.h
+    timer.h \
+    cleanbonus.h

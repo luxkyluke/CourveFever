@@ -22,6 +22,7 @@ private:
     }
     static const QMap<bonusType, QColor> bonusColorRelation;
     bool inAction, erased;
+    bonusType type;
 
     //QPixmap logo;
     //int width, height;
@@ -38,11 +39,12 @@ public:
     Bonus();
     Bonus(int w, int h, bonusType type);
     QColor getColor();
-    virtual void apply(Player*p) =0;
+    virtual void apply(Player*p=0) =0;
     virtual void cancel() =0;
     void checkTimeout();
     static bool isBonusColor(QColor c);
     static bonusType getType(QColor c);
+    virtual bonusType getType();
     static QPointF getRandPos(int w, int h);
     bool isInAction() const;
     void erase();

@@ -5,6 +5,7 @@
 
 #include "game.h"
 #include "biggerbonus.h"
+#include "cleanbonus.h"
 
 
 using namespace std;
@@ -38,6 +39,9 @@ Game::Game(QVector<Player *> &_players){
     window->setCanvas(terrain);
 
     Bonus *b = new BiggerBonus(WIDTH, HEIGHT);
+    addBonus(b);
+
+    b = new CleanBonus(WIDTH, HEIGHT);
     addBonus(b);
 
     timer = new QTimer(this);
@@ -177,8 +181,12 @@ void Game::checkCollision(){
             else if(Bonus::isBonusColor(c)){
                 try{
                    Bonus *b = getBonus(c);
-                   b->apply(p);
-                   terrain->paint();
+                   if(b->getType() == COMMUN){
+                        terrain->clear();
+                   }else{
+                       b->apply(p);
+                       terrain->paint();
+                   }
                    b->erase();
                    //verifier si on l'applique au player ou a tous
                 }catch(exception& e){
