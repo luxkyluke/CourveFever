@@ -13,7 +13,8 @@ private:
     Q_OBJECT
     QVector<Player*> players;
     QVector<Bonus*> bonus;
-    QTimer* timer, *bonusTimer;
+    QTimer* gameTimer, *bonusTimer;
+    clock_t preparationTimer;
     Terrain *terrain;
     int nbLivingPlayers;
     GameWindow* window;
@@ -28,6 +29,8 @@ private:
     bool colorAlreadyExist(QColor c);
     bool isInTouch(Bonus* b, Player *p);
     bool isNextToSth(Player *p);
+    bool isPreparationTime();
+    int getRemainingPrepTime();
     void end();
 
 public:

@@ -12,7 +12,8 @@
 using namespace std;
 
 const static int FRAME_DURATION = 17;
-const static int BONUS_CREATION_INTERVAL = 1000;
+const static int BONUS_CREATION_INTERVAL = 7000;
+const static int PREPARATION_DURATION = 5000;
 static const int WIDTH = 800;
 static const int HEIGHT = 800;
 
@@ -34,16 +35,16 @@ Game::Game(QVector<Player *> &_players){
     window->installEventFilter(this);
     window->setCanvas(terrain);
 
-    timer = new QTimer(this);
-    QObject::connect(timer, SIGNAL(timeout()), this, SLOT(refresh()));
-    timer->start(FRAME_DURATION);
+    gameTimer = new QTimer(this);
+    QObject::connect(gameTimer, SIGNAL(timeout()), this, SLOT(refresh()));
+    gameTimer->start(FRAME_DURATION);
 
     bonusTimer = new QTimer(this);
     QObject::connect(bonusTimer, SIGNAL(timeout()), this, SLOT(createRandomBonus()));
     bonusTimer->start(BONUS_CREATION_INTERVAL);
 
     window->show();
-
+    preparationTimer = clock();
 }
 
 void Game::createRandomBonus(){
@@ -118,7 +119,19 @@ Terrain* Game::getTerrain(){
     return terrain;
 }
 
+bool Game::isPreparationTime(){
+    return !((clock()-preparationTimer) > PREPARATION_DURATION);
+}
+
+int Game::getRemainingPrepTime(){
+    return (int)(PREPARATION_DURATION - (clock()-preparationTimer));
+}
+
 void Game::updateScene(){
+    if(isPreparationTime()){
+        window->displayRemainingTime(getRemainingPrepTime());
+        return;
+    }
     foreach(Player* p, players){
         p->moov();
     }
@@ -244,6 +257,7 @@ void Game::checkCollision(){
 }
 
 void Game::refresh(){
+
     if(nbLivingPlayers>0){
         updateScene();
         checkCollision();
@@ -259,7 +273,7 @@ void Game::refresh(){
 
 void Game::end(){
     cout << "FIN DU GAME"<<endl;
-    timer->stop();
+    gameTimer->stop();
     bonusTimer->stop();
 }
 
@@ -296,8 +310,8 @@ Game::~Game(){
         b=NULL;
 
     }
-    delete(timer);
-    timer = NULL;
+    delete(gameTimer);
+    gameTimer = NULL;
 
     delete(terrain);
     terrain = NULL;

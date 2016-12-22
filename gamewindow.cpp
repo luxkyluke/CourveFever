@@ -27,12 +27,9 @@ GameWindow::GameWindow(const int w, const int h,
                 QMainWindow(parent){
     this->resize(w+SCORE_LABEL_WIDTH, h);
 
-    QLabel *test =new QLabel("terrain");
-
-    terrainLabel = test;
-
+    terrainLabel =new QLabel("terrain");
     scoreWidget = new QWidget();
-    titre = new QLabel("scores", scoreWidget);
+    title = new QLabel("scores", scoreWidget);
 
     players = p;
 
@@ -55,24 +52,29 @@ GameWindow::GameWindow(const int w, const int h,
     mainWidget->setLayout(mainLayout);
     mainLayout->addWidget(scoreWidget);
     mainLayout->addWidget(terrainLabel);
+    terrainCanva = NULL;
+
+    //Overlay for the timer in the beginning
+    preGameOverlay = new QWidget(terrainLabel);
+    preGameOverlay->resize(w, h);
+    preGameOverlay->setStyleSheet("background-color : rgba(200, 200, 200, 0.3)");
+    remainingTime = new QLabel("100", preGameOverlay);
+    remainingTime->setStyleSheet("color : #fff; font-size: 50px; background-color : rgba(0,0, 0, 0)");
+    remainingTime->setGeometry(QRect(390, 375, 50, 50));
+    preGameOverlay->setVisible(true);
 
 
-    canva = NULL;
-
+    //Overlay for the end of the game
     terrainOverlay = new QWidget(terrainLabel);
     terrainOverlay->resize(w, h);
     terrainOverlay->setStyleSheet("background-color : rgba(200, 200, 200, 0.3)");
     terrainOverlay->setVisible(false);
-
     QPushButton *restartButton = new QPushButton("Play Again", terrainOverlay);
     restartButton->setStyleSheet("background-color: #757575; "
                                  "color : #fff; "
                                  "font-size: 35px; ");
     restartButton->setGeometry(QRect(150, 350, 200, 75));
     QObject::connect(restartButton, SIGNAL(clicked(bool)), game, SLOT(on_clickRestartButton()));
-
-
-
     QPushButton *quitButton = new QPushButton("Quit", terrainOverlay);
     quitButton->setStyleSheet("background-color: #757575; "
                               "color : #fff; "
@@ -83,7 +85,7 @@ GameWindow::GameWindow(const int w, const int h,
 
 
 void GameWindow::setCanvas(Terrain* t){
-    canva = t;
+    terrainCanva = t;
     terrainLabel->resize(t->getWidth(), t->getHeight());
 }
 
@@ -108,17 +110,17 @@ void GameWindow::keyReleaseEvent(){
 
 
 void GameWindow::paintEvent(QPaintEvent *e){
-    if(canva == NULL){
+    if(terrainCanva == NULL){
         std::cerr << "Cannot paint window's canvas, null pointeur exception"<<std::endl;
         exit(EXIT_FAILURE);
     }
-    canva->paintEvent(e);
-    terrainLabel->setPixmap(canva->getPic());
+    terrainCanva->paintEvent(e);
+    terrainLabel->setPixmap(terrainCanva->getPic());
 }
 
 GameWindow::~GameWindow(){
-    delete (titre);
-    titre = NULL;
+    delete (title);
+    title = NULL;
     delete(terrainLabel);
     terrainLabel =NULL;
     foreach(PlayerInfoWidget *p, playersInfos){
@@ -129,6 +131,14 @@ GameWindow::~GameWindow(){
     scoreWidget = NULL;
     free(terrainOverlay);
     terrainOverlay = NULL;
+}
+
+void GameWindow::displayRemainingTime(int time){
+    int displayTime = time*0.001 + 1;
+    if((time-100)>0)
+        remainingTime->setText(QString::number(displayTime));
+    else
+        preGameOverlay->setVisible(false);
 }
 
 void GameWindow::theEnd(){

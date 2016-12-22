@@ -16,16 +16,14 @@ class Game;
 
 class GameWindow : public QMainWindow{
     Q_OBJECT
-    Terrain* canva;
-    QLabel *terrainLabel, *titre;
+    Terrain* terrainCanva;
+    QLabel *terrainLabel, *title, *remainingTime;
     QVector<PlayerInfoWidget*> playersInfos;
     QVector<Player*> *players;
-    QWidget* scoreWidget;
+    QWidget* scoreWidget, *preGameOverlay;
     QWidget *terrainOverlay;
-//    QPushButton *restartButton;
 
 public:
-    //explicit MainWindow(QWidget *parent = 0);
     explicit GameWindow(const int w, const int h,
             QVector<Player*>* _scores, Game *game, QWidget *parent = 0);
     void keyPressEvent();
@@ -33,13 +31,10 @@ public:
     void paintEvent(QPaintEvent *e);
     void setCanvas(Terrain* t);
     void updateScores();
-    //void addPlayerToScoreTab(const Player* p);
     virtual ~GameWindow();
-    void theEnd();
+    void displayRemainingTime(int time);
 
-//private slots:
-//    void on_clickQuitButton();
-//    void on_clickRestartButton(Game *g);
+    void theEnd();
 
 };
 
