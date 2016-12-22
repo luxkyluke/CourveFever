@@ -42,6 +42,7 @@ HEADERS += \
     vector2D.h \
     menu.h \
     game.h \
+    circle.h\
     ctrlkey.h \
     biggerbonus.h \
     gamewindow.h \
