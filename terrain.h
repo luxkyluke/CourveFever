@@ -13,28 +13,62 @@ class Game;
 
 class Terrain : public QWidget{
 private:
-    //Matrix pixels;
-    const Game* game;
-
-    QPixmap pic;
+    const Game* game;       // saved to draw it
+    QPixmap pic;            //the "black-board" where everything is drawn
     int width, height;
-    bool isNoBorder;
+    bool isNoBorder;        //to draw borders only one time
 
+    /**
+     * @brief drawBorders : to draw border (white line arround the terrain
+     * to detect collisions)
+     * @param painter
+     */
     void drawBorders(QPainter& painter);
-    bool isBlack(QPointF pt, QColor* c); //check if pixel is black in position pt
+
+    /**
+     * @brief isBlack : check if pixel is black in position pt
+     * @param pt
+     * @param c
+     * @return
+     */
+    bool isBlack(QPointF pt, QColor* c);
 
 public:
     Terrain(QWidget *parent =0);
-    Terrain(const Game* g, int w,
-                     int h, QWidget *parent =0);
+    Terrain(const Game* g, int w, int h, QWidget *parent =0);
     int getWidth() const;
     int getHeight() const;
-    void paintEvent(QPaintEvent *pe);
-
     QPixmap getPic() const;
-    bool isInCollision(Player* p, QColor *c);
-    bool isBordersColor(QColor c);
+
+    /**
+     * @brief paintEvent : event called to refresh the terrain
+     * @param pe
+     */
+    void paintEvent(QPaintEvent *pe);
     void paint();
+
+    /**
+     * @brief isInCollision : get player's collisions position
+     * and check every pixels in those positions to know is they
+     * are black. If they don't, it mean, there is a collision, and so the
+     * color pointer will be fill with the unusual color met.
+     * @param p
+     * @param c
+     * @return
+     */
+    bool isInCollision(Player* p, QColor *c);
+
+    /**
+     * @brief isBordersColor
+     * @param c
+     * @return true is the c color is the same as borders color
+     */
+    bool isBordersColor(QColor c);
+
+    /**
+     * @brief clear : reset the pic
+     */
+    void clear();
 
     //change coordinates x, y which have origin (0,0)
     //in the middle of the scene by coord (0,0) based
@@ -50,9 +84,7 @@ public:
 
     static QPointF getCoordInLandmarkDim(QPoint &pt, const int &w, const int &h);
     QPoint getCoordInImgDim(QPointF& pt);
-    void changeCoordInImgDim(const float x, const float y,
-                          int *_x, int*_y);
-    void clear();
+
 };
 
 

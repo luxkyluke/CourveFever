@@ -13,8 +13,7 @@ Terrain::Terrain (QWidget *parent): QWidget(parent){
     isNoBorder = true;
 }
 
-Terrain::Terrain(const Game* g, int w,
-                 int h, QWidget *parent):
+Terrain::Terrain(const Game* g, int w,int h, QWidget *parent):
             QWidget(parent), game(g){
     width = w;
     height = h;
@@ -31,20 +30,8 @@ int Terrain::getHeight() const{
     return height;
 }
 
-//QImage& Terrain::getPixels() {
-//    return pixels;
-//}
-
-//QColor Terrain::getPixel(int x, int y){
-//    return pixels.pixel(x, y);
-//}
-
-//QColor Terrain::getPixel(QPointF& pt){
-//    return pixels.pixel(pt.toPoint());
-//}
-
 void Terrain::drawBorders(QPainter& painter){
-    QPen pen(WHITE_COLOR); //Qt::white
+    QPen pen(WHITE_COLOR);
     pen.setWidth(5);
 
     painter.setPen(pen);
@@ -75,18 +62,7 @@ void Terrain::paint(){
     painter.scale(1, -1);
     game->draw(&painter);
 
-
     painter.end();
-}
-
-//void Terrain::update(QGLWidget* renderer){
-//    pixels =  renderer->grab().toImage();
-//}
-
-void Terrain::changeCoordInImgDim(const float x, const float y,
-                               int *_x, int *_y){
-    *_x = getXImgCoord(x);
-    *_y = getYImgCoord(y);
 }
 
 void Terrain::clear(){
@@ -143,14 +119,4 @@ bool Terrain::isBordersColor(QColor c){
     return c==WHITE_COLOR;
 }
 
-
-//bool Terrain::isWall(QPointF pt) {
-//    float maxX = this->width/2;
-//    float maxY = this->height/2;
-
-//    if(pt.x()>maxX || pt.x() < -maxX/2
-//            || pt.y()>maxY || pt.y() < -maxY/2)
-//        return true;
-//    return false;
-//}
 

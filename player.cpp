@@ -91,25 +91,12 @@ void Player::makeSmaller(float r){
     makeBigger(-r);
 }
 
-void Player::reset(){
-    position = Player::getRandPos();
-    isLiving = true;
-    direction = DEFAULT_DIR;
-    score =0;
-    turn = 0;
-    angle = 0.;
-}
-
 Player::~Player(){
 
 }
 
 void Player::accelerate(float value){
     acceleration+=value;
-}
-
-void Player::resetSpeed(){
-    acceleration = DEFAULT_ACCELERATION;
 }
 
 
@@ -154,10 +141,8 @@ bool Player::checkKey(QKeyEvent* event){
     if(!ctrlKeys.isCtrlKey(event->key()))
         return false;
     if(event->type() == QKeyEvent::KeyPress){
-
         if(event->key() ==  ctrlKeys.getRightKey()){
            turn = 1;
-
         }else if(event->key() ==  ctrlKeys.getLeftKey()){
            turn = -1;
         }
@@ -214,10 +199,6 @@ void Player::updateRotate(){
         direction.setX(nx);
         direction.setY(ny);
     }
-}
-
-Vector2D Player::getDirection() const{
-    return direction;
 }
 
 int Player::getScore() const{

@@ -34,7 +34,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Courve Fever</string>
+     <string>Worms Fever</string>
     </property>
    </widget>
    <widget class="QPushButton" name="StartButton">

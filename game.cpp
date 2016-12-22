@@ -14,12 +14,8 @@ using namespace std;
 const static int FRAME_DURATION = 17;
 const static int BONUS_CREATION_INTERVAL = 7000;
 const static int PREPARATION_DURATION = 5000;
-static const int WIDTH = 800;
-static const int HEIGHT = 800;
-
-Game::Game(){
-
-}
+static const int TERRAIN_WIDTH = 800;
+static const int TERRAIN_HEIGHT = 800;
 
 Game::Game(QVector<Player *> &_players){
 
@@ -29,9 +25,9 @@ Game::Game(QVector<Player *> &_players){
     srand(time(NULL));
     initPlayers();
 
-    terrain = new Terrain(this, WIDTH, HEIGHT);
+    terrain = new Terrain(this, TERRAIN_WIDTH, TERRAIN_HEIGHT);
 
-    window = new GameWindow(WIDTH, HEIGHT, &players, this);
+    window = new GameWindow(TERRAIN_WIDTH, TERRAIN_HEIGHT, &players, this);
     window->installEventFilter(this);
     window->setCanvas(terrain);
 
@@ -54,23 +50,23 @@ void Game::createRandomBonus(){
     Bonus *b;
     switch(nbRand){
        case 0:
-        b = new SpeedBonus(WIDTH, HEIGHT);
+        b = new SpeedBonus(TERRAIN_WIDTH, TERRAIN_HEIGHT);
         break;
        case 1:
-        b = new CleanBonus(WIDTH, HEIGHT);
+        b = new CleanBonus(TERRAIN_WIDTH, TERRAIN_HEIGHT);
         break;
        case 2:
-        b = new BiggerBonus(WIDTH, HEIGHT);
+        b = new BiggerBonus(TERRAIN_WIDTH, TERRAIN_HEIGHT);
         break;
        default :
-        b = new SpeedBonus(WIDTH, HEIGHT);
+        b = new SpeedBonus(TERRAIN_WIDTH, TERRAIN_HEIGHT);
         break;
     }
     addBonus(b);
 
 }
 
-bool Game::isNextToSth(Player *player){
+bool Game::isNextToSb(Player *player){
     foreach(Player* p, players){
         if(p == player)
             continue;
@@ -93,7 +89,7 @@ void Game::initPlayers(){
     foreach(Player* p, players){
         do{
             p->setPosition(Player::getRandPos());
-        }while(isNextToSth(p));
+        }while(isNextToSb(p));
         QColor c;
         do{
             c= Player::getRandColor();
@@ -102,23 +98,10 @@ void Game::initPlayers(){
     }
 }
 
-
-void Game::addPlayer(Player *p){
-    players.append(p);
-    nbLivingPlayers ++;
-}
-
-//determiner quel touche appartienne a quelle joueur
-bool Game::keyEvent(QKeyEvent* event){
-
+void Game::keyEvent(QKeyEvent* event){
     foreach(Player* p, players){
         p->checkKey(event);
     }
-    return true;
-}
-
-Terrain* Game::getTerrain(){
-    return terrain;
 }
 
 bool Game::isPreparationTime(){
@@ -165,14 +148,6 @@ void Game::draw(QPainter *painter)const{
     }
 }
 
-int Game::getWidth() const{
-    return terrain->getWidth();
-}
-
-int Game::getHeight() const{
-    return terrain->getHeight();
-}
-
 void Game::addBonus(Bonus *b){
     bonus.append(b);
 }
@@ -208,7 +183,7 @@ Bonus* Game::getBonus(QColor c, Player*p){
 
 void Game::checkCollision(){
     foreach(Player* p, players){
-        if(!p->getIsLiving() )
+        if(!p->getIsLiving())
             continue;
         QColor c;
         if(terrain->isInCollision(p, &c)){
@@ -222,6 +197,7 @@ void Game::checkCollision(){
             }
             else if(Bonus::isBonusColor(c)){
                 try{
+                   //try to get the bonus corresponding to the collission
                    Bonus *b = getBonus(c, p);
                    if(b->getType() == COMMUN){
                         terrain->clear();
@@ -248,14 +224,7 @@ void Game::checkCollision(){
                 }
             }
             else{
-                try{
-                    Player killer = getPlayer(c);
-                    killer.increaseScore();
-                    killPlayer(p);
-                }catch(exception& e){
-                    cerr << e.what() << endl;
-                    exit(EXIT_FAILURE);
-                }
+               killPlayer(p);
             }
         }
     }
@@ -303,10 +272,6 @@ bool Game::eventFilter(QObject *object, QEvent *event){
         return true;
     }
     return false;
-}
-
-void Game::play(){
-    window->show();
 }
 
 Game::~Game(){

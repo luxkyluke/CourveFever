@@ -21,7 +21,7 @@ private:
 
     /**
      * @brief updateScene : call every frame to make the
-     * necessary checks and changes
+     * necessary changes on element's game
      */
     void updateScene();
 
@@ -41,41 +41,108 @@ private:
     Bonus* getBonus(QColor c, Player *p);
 
     /**
-     * @brief checkCollision : Check all the colisions during the game
+     * @brief checkCollision : Check all the collisions during the game
      * So as you may notice the player can be kill himself when he's alone
      * but not with other player
-     * And the
      */
     void checkCollision();
+
+    /**
+     * @brief killPlayer : to kill the player ou died and increase the score
+     * of the others
+     * @param p
+     */
     void killPlayer(Player* p);
+    /**
+     * @brief initPlayers : To re-attribute player's positions and colors
+     * to avoid to have players in the initial place with too similare colors
+     */
     void initPlayers();
-    void changePositionPlayer(Player *p);
+
+    /**
+     * @brief colorAlreadyExist : to know if a color is already taken by someone
+     * @param c
+     * @return
+     */
     bool colorAlreadyExist(QColor c);
+
+    /**
+     * @brief isInTouch : To know if the player p is touching the bonus b
+     * @param b
+     * @param p
+     * @return
+     */
     bool isInTouch(Bonus* b, Player *p);
-    bool isNextToSth(Player *p);
-    bool isPreparationTime();
-    int getRemainingPrepTime();
+
+    /**
+     * @brief isNextToSth : To know, if a player position is next to someone else
+     * @param p
+     * @return
+     */
+    bool isNextToSb(Player *p);
+
+    /**
+     * @brief end : stop timers when the game is over
+     */
     void end();
+
+    /**
+     * @brief getIdwinner : return the position of the best player
+     * of the game, in a player's vector;
+     * @return
+     */
     int getIdwinner();
 
+    /**
+     * @brief isPreparationTime: mesure is the preparation time is over or not
+     * @return
+     */
+    bool isPreparationTime();
+
+    /**
+     * @brief getRemainingPrepTime : return what time it left before beginning
+     * @return
+     */
+    int getRemainingPrepTime();
+
 public:
-    Game();
     Game(QVector<Player*>& _players);
-    void addPlayer(Player *p);
-    bool keyEvent(QKeyEvent* event);
-    void draw(QPainter *painter) const;
-    int getWidth() const;
-    int getHeight() const;
     void addBonus(Bonus* b);
-    bool eventFilter(QObject *object, QEvent *event);
-    void play();
-    Terrain* getTerrain();
     ~Game();
+
+    /**
+     * @brief keyEvent : inform all player that a key event append
+     * @param event
+     */
+    void keyEvent(QKeyEvent* event);
+
+    /**
+     * @brief draw : To let the game draw him and all his component
+     * @param painter
+     */
+    void draw(QPainter *painter) const;
+
+    /**
+     * @brief eventFilter : To recive all events happenning
+     * in the game window
+     * @param object
+     * @param event
+     * @return
+     */
+    bool eventFilter(QObject *object, QEvent *event);
 
 private slots:
     void on_clickQuitButton();
     void on_clickRestartButton();
+
+    /**
+     * @brief createRandomBonus : Called every 7sec to create a bonus
+     */
     void createRandomBonus();
+
+    /**
+     * @brief refresh : call every frame to check collisions and apply changes
+     */
     void refresh();
 
 

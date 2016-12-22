@@ -6,18 +6,6 @@
 #include <QVectorIterator>
 #include <QtCore>
 
-
-
-//Canvas *MainWindow::getRenderer() const
-//{
-//    return canva;
-//}
-
-//MainWindow::MainWindow(QWidget *parent):
-//    QMainWindow(parent){
-
-//}
-
 const static int SCORE_LABEL_WIDTH = 300;
 const static int PLAYER_WIDGET_HEIGHT = 50;
 const static int MENU_TAB_HEIGHT = 25;
@@ -31,16 +19,16 @@ GameWindow::GameWindow(const int w, const int h,
     scoreWidget = new QWidget();
     title = new QLabel("Scores", scoreWidget);
     title->setStyleSheet("font-size:30px;");
-    title->setGeometry(QRect(100, 0, 100, 30));
+    title->setGeometry(QRect(100, 25, 100, 30));
 
     players = p;
 
-    int height = PLAYER_WIDGET_HEIGHT;
+    int height = 50+PLAYER_WIDGET_HEIGHT;
 
     //---------------------------------
     //    /!\     ITERATOR     /!\
     //---------------------------------
-
+    //Load all player's informations into the left tab
     QVector<Player*>::iterator iterator;
     for(iterator = p->begin(); iterator != p->end(); iterator++) {
         PlayerInfoWidget *bloc = new PlayerInfoWidget(*iterator, SCORE_LABEL_WIDTH, height, scoreWidget);
@@ -48,6 +36,7 @@ GameWindow::GameWindow(const int w, const int h,
         height += PLAYER_WIDGET_HEIGHT;
     }
 
+    //organised the main widget of the window
     QWidget* mainWidget = new QWidget();
     this->setCentralWidget(mainWidget);
     QHBoxLayout *mainLayout = new QHBoxLayout();
@@ -99,10 +88,6 @@ void GameWindow::updateScores(){
         it++;
     }
 }
-
-//void GameWindow::addPlayerToScoreTab(const Player *p){
-
-//}
 
 void GameWindow::keyPressEvent() {
 }

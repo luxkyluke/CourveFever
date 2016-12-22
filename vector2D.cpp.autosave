@@ -69,4 +69,3 @@ Vector2D operator*(Vector2D &v, float a){
     return ret;
 }
 
-

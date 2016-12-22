@@ -4,10 +4,11 @@
 #include <QGLWidget>
 #include <QPointF>
 
-
+/**
+ * @brief The GameItem class : Abstract class which represente
+ * every element of the game
+ */
 class GameItem{
-
-
 protected:
     QPointF position;
 public:

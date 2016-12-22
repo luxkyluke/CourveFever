@@ -6,7 +6,10 @@
 #include <QLCDNumber>
 #include "player.h"
 
-
+/**
+ * @brief The PlayerInfoWidget class Widget use in a gamewindow
+ * to show and update players'informations
+ */
 class PlayerInfoWidget : QWidget{
 private :
     QLabel *color;

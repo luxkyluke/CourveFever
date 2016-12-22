@@ -1,7 +1,7 @@
 #include "circle.h"
 #include <QColor>
 
-const static int COLOR_RANGE =30;
+const static int COLOR_RANGE =50;
 
 QColor Circle::getColor() const{
     return color;

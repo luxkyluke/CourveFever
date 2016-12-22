@@ -92,9 +92,6 @@ bool MenuWindow::eventFilter(QObject *object, QEvent *event) {
                 }
             }
             else if (type == LKEY_TEXT || type == RKEY_TEXT){
-//                QKeySequence key("M");
-//                qDebug()<<key[0];
-//                qDebug()<< keyEvent->key();
                 if(keyEvent->key() == Qt::Key_Right){
                     textEdit->setPlainText("->");
                 }else if(keyEvent->key() == Qt::Key_Left){
@@ -182,9 +179,7 @@ void MenuWindow::on_StartButton_clicked(){
 
     players.append(new Player(pseudo, RKey, LKey));
     if(!ui->checkBoxPlayer1->isChecked()){
-        //this->hide();
         game = new Game(players);
-        //this->show();
         return;
     }
 

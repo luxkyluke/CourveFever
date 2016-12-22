@@ -14,6 +14,7 @@
 class Terrain;
 class Game;
 
+
 class GameWindow : public QMainWindow{
     Q_OBJECT
     Terrain* terrainCanva;
@@ -30,10 +31,23 @@ public:
     void keyReleaseEvent();
     void paintEvent(QPaintEvent *e);
     void setCanvas(Terrain* t);
-    void updateScores();
     virtual ~GameWindow();
+
+    /**
+     * @brief updateScores : update player's scores
+     */
+    void updateScores();
+    /**
+     * @brief displayRemainingTime : Display the remaining time before
+     * staring game
+     * @param time
+     */
     void displayRemainingTime(int time);
 
+    /**
+     * @brief theEnd : Display the end menu
+     * @param id
+     */
     void theEnd(int id);
 
 };
