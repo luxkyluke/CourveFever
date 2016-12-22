@@ -60,8 +60,10 @@ void Bonus::checkTimeout(){
 }
 
 QPointF Bonus::getRandPos(int w, int h){
-    int x = rand() %w;
-    int y = rand() %h;
+    int newW = w-(radius*4);
+    int newH = h-(radius*4);
+    int x = rand() %newW + (int)(radius*2) ;
+    int y = rand() %newH + (int)(radius*2) ;
     QPoint p = QPoint(x, y);
     QPointF pos = Terrain::getCoordInLandmarkDim(p, w, h);
     return pos;

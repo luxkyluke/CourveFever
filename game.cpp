@@ -12,7 +12,7 @@
 using namespace std;
 
 const static int FRAME_DURATION = 17;
-const static int BONUS_CREATION_INTERVAL = 7000;
+const static int BONUS_CREATION_INTERVAL = 5000;
 const static int PREPARATION_DURATION = 5000;
 static const int TERRAIN_WIDTH = 800;
 static const int TERRAIN_HEIGHT = 800;
@@ -37,7 +37,10 @@ Game::Game(QVector<Player *> &_players){
 
     bonusTimer = new QTimer(this);
     QObject::connect(bonusTimer, SIGNAL(timeout()), this, SLOT(createRandomBonus()));
-    bonusTimer->start(BONUS_CREATION_INTERVAL);
+    if(nbLivingPlayers<2)
+        bonusTimer->start(BONUS_CREATION_INTERVAL/3);
+    else
+        bonusTimer->start(BONUS_CREATION_INTERVAL);
 
     window->show();
     preparationTimer = clock();
