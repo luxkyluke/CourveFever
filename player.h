@@ -25,13 +25,14 @@ private:
     int score,
         turn;
     bool isLiving;
-    float angle;
+    float angle, acceleration;
     CtrlKey ctrlKeys;
 
     void updateSpeed();
     void updateRotate();
     void updatePosition();
     //void updateHeadPosition();
+
 
 public:
     Player();
@@ -62,6 +63,8 @@ public:
     void makeBigger(float r);
     void reset();
     virtual ~Player();
+    void accelerate(float value);
+    void resetSpeed();
 };
 
 #endif // PLAYER_H

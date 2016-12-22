@@ -23,7 +23,7 @@ MenuWindow::MenuWindow( QWidget *parent) :
     ui(new Ui::MenuWindow){
     ui->setupUi(this);
 
-    //game =g;
+    game =NULL;
     //addPlayer();
 
     initWindow();
@@ -120,7 +120,8 @@ MenuWindow::~MenuWindow(){
 }
 
 void MenuWindow::closeEvent(QCloseEvent *event){
-    delete game;
+    if(game)
+        delete game;
 }
 
 void MenuWindow::on_checkBoxPlayer1_clicked(bool checked){

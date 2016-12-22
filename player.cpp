@@ -24,6 +24,7 @@ Player::Player(): direction(DEFAULT_DIR),
     score =0;
     turn = 0;
     angle = 0.;
+    acceleration = 0.;
     setColor(QColor(255, 255, 0, 255));
     isLiving = true;
 }
@@ -40,6 +41,7 @@ Player::Player(QString _pseudo, int rKey, int lKey): direction(DEFAULT_DIR),
     //srand(time(NULL));
     setColor(Player::getRandColor());
     isLiving = true;
+    acceleration = DEFAULT_ACCELERATION;
     pseudo = _pseudo;
 }
 
@@ -96,6 +98,14 @@ void Player::reset(){
 
 Player::~Player(){
 
+}
+
+void Player::accelerate(float value){
+    acceleration+=value;
+}
+
+void Player::resetSpeed(){
+    acceleration = DEFAULT_ACCELERATION;
 }
 
 
@@ -220,7 +230,7 @@ QString Player::getPseudo() const
 }
 
 void Player::updateSpeed(){
-    speed = direction * DEFAULT_ACCELERATION;
+    speed = direction * acceleration;
 }
 
 void Player::updatePosition(){

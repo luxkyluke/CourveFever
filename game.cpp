@@ -6,6 +6,7 @@
 #include "game.h"
 #include "biggerbonus.h"
 #include "cleanbonus.h"
+#include "speedbonus.h"
 
 
 using namespace std;
@@ -42,6 +43,9 @@ Game::Game(QVector<Player *> &_players){
     addBonus(b);
 
     b = new CleanBonus(WIDTH, HEIGHT);
+    addBonus(b);
+
+    b = new SpeedBonus(WIDTH, HEIGHT);
     addBonus(b);
 
     timer = new QTimer(this);
@@ -144,7 +148,6 @@ int Game::getHeight() const{
 
 void Game::addBonus(Bonus *b){
     bonus.append(b);
-    cout<<"bonus ajouté : "<<b->getColor().name().toStdString()<<endl;
 }
 
 void Game::killPlayer(Player* dead){
@@ -185,6 +188,7 @@ void Game::checkCollision(){
                         terrain->clear();
                    }else{
                        b->apply(p);
+                       cout<<"Applique bonus"<<endl;
                        terrain->paint();
                    }
                    b->erase();

@@ -22,5 +22,4 @@ void BiggerBonus::cancel(){
         return;
     player->resetRadius();
     Bonus::stop();
-
 }
