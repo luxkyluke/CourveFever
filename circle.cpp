@@ -20,8 +20,13 @@ bool Circle::hasSameColor(QColor c){
             && c.green() > color.green()-COLOR_RANGE);
 }
 
+
 void Circle::resetRadius(){
     radius = initialRadius;
+}
+
+float Circle::getRadius(){
+    return radius;
 }
 
 void Circle::setColor(const QColor &value){

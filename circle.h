@@ -10,6 +10,7 @@ protected:
     float initialRadius;
     QColor color;
 
+
 public:
     Circle();
     Circle(float rad, QPointF center, QColor c =DEFAULT_COLOR);
@@ -18,6 +19,7 @@ public:
     QColor getColor() const;
     void addRadius(float r);
     bool hasSameColor(QColor c);
+    float getRadius();
     void resetRadius();
 
 protected:

@@ -12,14 +12,9 @@
 using namespace std;
 
 const static int FRAME_DURATION = 17;
+const static int BONUS_CREATION_INTERVAL = 1000;
 static const int WIDTH = 800;
 static const int HEIGHT = 800;
-
-
-//Game::Game(): terrain(),
-//    window(){
-
-//}
 
 Game::Game(){
 
@@ -39,21 +34,38 @@ Game::Game(QVector<Player *> &_players){
     window->installEventFilter(this);
     window->setCanvas(terrain);
 
-    Bonus *b = new BiggerBonus(WIDTH, HEIGHT);
-    addBonus(b);
-
-    b = new CleanBonus(WIDTH, HEIGHT);
-    addBonus(b);
-
-    b = new SpeedBonus(WIDTH, HEIGHT);
-    addBonus(b);
-
     timer = new QTimer(this);
     QObject::connect(timer, SIGNAL(timeout()), this, SLOT(refresh()));
     timer->start(FRAME_DURATION);
+
+    bonusTimer = new QTimer(this);
+    QObject::connect(bonusTimer, SIGNAL(timeout()), this, SLOT(createRandomBonus()));
+    bonusTimer->start(BONUS_CREATION_INTERVAL);
+
     window->show();
+
 }
 
+void Game::createRandomBonus(){
+    int nbRand = rand() %3;
+    Bonus *b;
+    switch(nbRand){
+       case 0:
+        b = new BiggerBonus(WIDTH, HEIGHT);
+        break;
+       case 1:
+        b = new CleanBonus(WIDTH, HEIGHT);
+        break;
+       case 2:
+        b = new SpeedBonus(WIDTH, HEIGHT);
+        break;
+       default :
+        b = new SpeedBonus(WIDTH, HEIGHT);
+        break;
+    }
+    addBonus(b);
+
+}
 
 bool Game::isNextToSth(Player *player){
     foreach(Player* p, players){
@@ -159,10 +171,22 @@ void Game::killPlayer(Player* dead){
     nbLivingPlayers--;
 }
 
-Bonus* Game::getBonus(QColor c){
+bool Game::isInTouch(Bonus* b, Player *p){
+    Vector2D distance = Vector2D(b->getPosition(), p->getPosition());
+    float radiusLenght = (b->getRadius()*b->getRadius())
+            + (p->getRadius()*p->getRadius());
+    if(distance.sqrNorm() > radiusLenght*2)
+        return false;
+    return true;
+}
+
+Bonus* Game::getBonus(QColor c, Player*p){
     foreach(Bonus *b, bonus){
-        if(b->getColor() == c)
-            return b;
+        if(b->getColor() == c){
+            if(isInTouch(b, p))
+                return b;
+        }
+
     }
     throw std::invalid_argument("Is not a bonus color");
 }
@@ -174,25 +198,32 @@ void Game::checkCollision(){
             continue;
         QColor c;
         if(terrain->isInCollision(p, &c)){
-            cout << "couleur " << c.red() << " "<< c.green() << " "<< c.blue() <<endl;
             if(p->isMyColor(c))
                 return;
-            if(terrain->isBordersColor(c) /*|| p->isMyColor(c)*/){
+            if(terrain->isBordersColor(c)){
                 killPlayer(p);
                 continue;
             }
             else if(Bonus::isBonusColor(c)){
                 try{
-                   Bonus *b = getBonus(c);
+                   Bonus *b = getBonus(c, p);
                    if(b->getType() == COMMUN){
                         terrain->clear();
-                   }else{
-                       b->apply(p);
-                       cout<<"Applique bonus"<<endl;
-                       terrain->paint();
+                        b->erase();
+                   }else if(b->getType() == BAD){
+                       foreach(Player *player, players){
+                           if(player == p && players.size()>1)
+                               continue;
+                           b->apply(player);
+                           terrain->paint();
+                           b->erase();
+                       }
                    }
-                   b->erase();
-                   //verifier si on l'applique au player ou a tous
+                   else{
+                       b->apply(p);
+                       terrain->paint();
+                       b->erase();
+                   }
                 }catch(exception& e){
                     cerr << e.what() << endl;
                     exit(EXIT_FAILURE);
@@ -229,6 +260,7 @@ void Game::refresh(){
 void Game::end(){
     cout << "FIN DU GAME"<<endl;
     timer->stop();
+    bonusTimer->stop();
 }
 
 

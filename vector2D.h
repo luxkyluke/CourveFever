@@ -7,6 +7,7 @@ class Vector2D : public QPointF{
 
 public:
     Vector2D(QPointF p);
+    Vector2D(QPointF p, QPointF p2);
     Vector2D();
     Vector2D(float x, float y);
     void add(Vector2D & v);

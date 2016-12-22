@@ -49,6 +49,7 @@ public:
     bool isInAction() const;
     void erase();
     bool isErased() const;
+    //float getRadius(){return Circle::getRadius;}
     virtual ~Bonus();
 };
 

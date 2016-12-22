@@ -13,19 +13,20 @@ private:
     Q_OBJECT
     QVector<Player*> players;
     QVector<Bonus*> bonus;
-    QTimer* timer;
+    QTimer* timer, *bonusTimer;
     Terrain *terrain;
     int nbLivingPlayers;
     GameWindow* window;
 
     void updateScene();
     Player& getPlayer(QColor c);
-    Bonus* getBonus(QColor c);
+    Bonus* getBonus(QColor c, Player *p);
     void checkCollision();
     void killPlayer(Player* p);
     void initPlayers();
     void changePositionPlayer(Player *p);
     bool colorAlreadyExist(QColor c);
+    bool isInTouch(Bonus* b, Player *p);
     bool isNextToSth(Player *p);
     void end();
 
@@ -43,11 +44,11 @@ public:
     Terrain* getTerrain();
     ~Game();
 
-public slots:
-    void refresh();
 private slots:
     void on_clickQuitButton();
     void on_clickRestartButton();
+    void createRandomBonus();
+    void refresh();
 
 
 };
