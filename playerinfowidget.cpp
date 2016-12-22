@@ -13,12 +13,8 @@ QString intToQString(int a){
 }
 
 PlayerInfoWidget::PlayerInfoWidget(Player* p, int w, int h, QWidget *parent) : QWidget(parent){
-
     //init color
     color = new QLabel(this);
-//    QPalette pal = color->palette();
-//    pal.setColor(color->backgroundRole(), p->getColor());
-//    color->setPalette(pal);
     QString c = p->getColor().name();
     color->setStyleSheet("QLabel { background-color :"+c+"}");
     color->setGeometry(QRect(10, h, WIDTH_COLOR_BOX, WIDTH_COLOR_BOX));
@@ -36,4 +32,8 @@ PlayerInfoWidget::PlayerInfoWidget(Player* p, int w, int h, QWidget *parent) : Q
 
 void PlayerInfoWidget::setScore(int _score){
     score->setText(intToQString(_score));
+}
+
+void PlayerInfoWidget::win(){
+    pseudo->setStyleSheet("color : #429dff; font-size:25px;");
 }

@@ -29,7 +29,9 @@ GameWindow::GameWindow(const int w, const int h,
 
     terrainLabel =new QLabel("terrain");
     scoreWidget = new QWidget();
-    title = new QLabel("scores", scoreWidget);
+    title = new QLabel("Scores", scoreWidget);
+    title->setStyleSheet("font-size:30px;");
+    title->setGeometry(QRect(100, 0, 100, 30));
 
     players = p;
 
@@ -141,7 +143,9 @@ void GameWindow::displayRemainingTime(int time){
         preGameOverlay->setVisible(false);
 }
 
-void GameWindow::theEnd(){
+void GameWindow::theEnd(int id){
+    if(id < playersInfos.size())
+        playersInfos.at(id)->win();
     terrainOverlay->setVisible(true);
 }
 

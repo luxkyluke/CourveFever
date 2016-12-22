@@ -13,7 +13,6 @@
 #include "ctrlKey.h"
 
 
-static int ITERATEUR_ID = 0;
 const static int NB_KEYS = 2;
 
 class Player : public Circle{
@@ -61,6 +60,7 @@ public:
     bool operator==(Player& p);
     bool operator!=(Player& p);
     void makeBigger(float r);
+    void makeSmaller(float r);
     void reset();
     virtual ~Player();
     void accelerate(float value);

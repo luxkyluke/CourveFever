@@ -16,6 +16,6 @@ void SpeedBonus::apply(Player *p){
 void SpeedBonus::cancel(){
     if(!player)
         return;
-    player->resetSpeed();
+    player->accelerate(-SPEED);
     Bonus::stop();
 }

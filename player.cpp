@@ -87,6 +87,10 @@ void Player::makeBigger(float r){
     Circle::addRadius(r);
 }
 
+void Player::makeSmaller(float r){
+    makeBigger(-r);
+}
+
 void Player::reset(){
     position = Player::getRandPos();
     isLiving = true;

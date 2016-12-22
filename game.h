@@ -32,6 +32,7 @@ private:
     bool isPreparationTime();
     int getRemainingPrepTime();
     void end();
+    int getIdwinner();
 
 public:
     Game();

@@ -34,7 +34,7 @@ public:
     virtual ~GameWindow();
     void displayRemainingTime(int time);
 
-    void theEnd();
+    void theEnd(int id);
 
 };
 

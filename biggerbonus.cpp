@@ -20,6 +20,6 @@ void BiggerBonus::apply(Player *p){
 void BiggerBonus::cancel(){
     if(!player)
         return;
-    player->resetRadius();
+    player->makeSmaller(FAT_RADIUS);
     Bonus::stop();
 }

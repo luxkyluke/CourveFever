@@ -16,6 +16,7 @@ private :
 public:
     explicit PlayerInfoWidget(Player *p, int w, int h, QWidget* parent=0);
     void setScore(int score);
+    void win();
 };
 
 #endif // PLAYERINFOWIDGET_H

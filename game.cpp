@@ -49,16 +49,18 @@ Game::Game(QVector<Player *> &_players){
 
 void Game::createRandomBonus(){
     int nbRand = rand() %3;
+    if(players.size()<2)
+        nbRand = rand() %2;
     Bonus *b;
     switch(nbRand){
        case 0:
-        b = new BiggerBonus(WIDTH, HEIGHT);
+        b = new SpeedBonus(WIDTH, HEIGHT);
         break;
        case 1:
         b = new CleanBonus(WIDTH, HEIGHT);
         break;
        case 2:
-        b = new SpeedBonus(WIDTH, HEIGHT);
+        b = new BiggerBonus(WIDTH, HEIGHT);
         break;
        default :
         b = new SpeedBonus(WIDTH, HEIGHT);
@@ -206,14 +208,15 @@ Bonus* Game::getBonus(QColor c, Player*p){
 
 void Game::checkCollision(){
     foreach(Player* p, players){
-
-        if(!p->getIsLiving())
+        if(!p->getIsLiving() )
             continue;
         QColor c;
         if(terrain->isInCollision(p, &c)){
-            if(p->isMyColor(c))
+            //if there are multiplayers, a player can't be killed by himself
+            if(p->isMyColor(c)&& players.size()>1)
                 return;
-            if(terrain->isBordersColor(c)){
+            //if there is only one player he can be killed by himself
+            if(terrain->isBordersColor(c) || (players.size()<2 && p->isMyColor(c))){
                 killPlayer(p);
                 continue;
             }
@@ -224,12 +227,14 @@ void Game::checkCollision(){
                         terrain->clear();
                         b->erase();
                    }else if(b->getType() == BAD){
-                       foreach(Player *player, players){
-                           if(player == p && players.size()>1)
-                               continue;
-                           b->apply(player);
-                           terrain->paint();
-                           b->erase();
+                       if(players.size()>1){
+                           foreach(Player *player, players){
+                               if(player == p)
+                                   continue;
+                               b->apply(player);
+                               terrain->paint();
+                               b->erase();
+                           }
                        }
                    }
                    else{
@@ -256,32 +261,36 @@ void Game::checkCollision(){
     }
 }
 
-void Game::refresh(){
+int Game::getIdwinner(){
+    int idWinner = 0;
+    for(unsigned int i=1; i<players.size(); i++){
+        if(players.at(i)->getScore() > players.at(idWinner)->getScore())
+            idWinner = i;
+    }
+    return idWinner;
+}
 
-    if(nbLivingPlayers>0){
+void Game::refresh(){
+    if(nbLivingPlayers>1 || (players.size() == 1 && nbLivingPlayers>0)){
         updateScene();
         checkCollision();
     }
     else{
-        cout<<"Tous le monde est mort"<<endl;
-        window->theEnd();
+        window->theEnd(getIdwinner());
         end();
-//        exit(0);
     }
     window->updateScores();
 }
 
 void Game::end(){
-    cout << "FIN DU GAME"<<endl;
     gameTimer->stop();
     bonusTimer->stop();
 }
 
-
-
 bool Game::eventFilter(QObject *object, QEvent *event){
      if(event->type() == QEvent::Close){
-        end();
+        if(gameTimer->isActive())
+            end();
      }
     if(event->type() == QEvent::KeyPress){
         QKeyEvent *kEvent = static_cast<QKeyEvent *>(event);
